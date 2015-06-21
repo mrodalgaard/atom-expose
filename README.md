@@ -22,6 +22,7 @@ Shows file icons if the [file-icon package](https://github.com/DanBrooker/file-i
 - [ ] Serialize enabled
 - [x] Show preview of images
 - [x] Tab icons
+- [ ] Keyboard shortcuts (e.g. numbers)
 
 > Contributions, bug reports and feature requests are very welcome.
 
