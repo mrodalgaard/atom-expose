@@ -10,12 +10,15 @@ The overview layout tries to simulate your current themes tab style.
 
 - [x] Basic exposé functionality
 - [x] Activate and close tabs
+- [x] Add tests
+- [ ] Add detailed unit tests
 - [ ] Move / sortable tabs
 - [ ] Tab preview images with fallback
-- [ ] Add tests
 - [ ] Split overview into panels
 - [ ] Stay updated on workspace changes
 - [ ] Show all project files options
+- [ ] Serialize enabled
+- [ ] Tab icons
 
 > Contributions, bug reports and feature requests are very welcome.
 
