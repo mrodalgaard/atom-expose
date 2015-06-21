@@ -1,0 +1,57 @@
+@import "ui-variables";
+
+.expose-view {
+  @shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.5);
+
+  .expose-close {
+    float: right;
+    &::before {
+      font-size: 24px;
+    }
+  }
+
+  // Tab bar overrides
+  .tab-bar {
+    height: inherit;
+    background: inherit;
+    box-shadow: inherit;
+    display: block;
+    padding: 0;
+
+    .tab-container {
+      width: 200px;
+      float: left;
+
+      .close-icon {
+        display: none;
+      }
+
+      &:hover {
+        .tab-body {
+          box-shadow: @shadow;
+        }
+
+        .close-icon {
+          display: block;
+        }
+      }
+
+      .tab {
+        margin: 0px 25px 2px 25px;
+      }
+
+      .tab-body {
+        background: @base-background-color;
+        border-top: solid 1px @text-color-info;
+        transition: box-shadow 0.5s ease;
+        margin: 5px 4px;
+        height: 130px;
+
+        p {
+          padding-top: 50px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

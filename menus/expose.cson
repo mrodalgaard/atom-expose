@@ -1,0 +1,14 @@
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'expose'
+      'submenu': [
+        {
+          'label': 'Toggle'
+          'command': 'expose:toggle'
+        }
+      ]
+    ]
+  }
+]

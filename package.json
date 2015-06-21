@@ -1,0 +1,23 @@
+{
+  "name": "expose",
+  "main": "./lib/expose",
+  "version": "0.0.0",
+  "description": "Quick tab overview of open files",
+  "keywords": [
+    "tab",
+    "expose",
+    "overview",
+    "group"
+  ],
+  "activationCommands": {
+    "atom-workspace": "expose:toggle"
+  },
+  "repository": "https://github.com/atom/expose",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=0.174.0 <2.0.0"
+  },
+  "dependencies": {
+    "atom-space-pen-views": "^2.0.3"
+  }
+}
