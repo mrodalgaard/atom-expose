@@ -12,15 +12,18 @@
 
   // Tab bar overrides
   .tab-bar {
+    display: inline-flex;
+    justify-content: space-around;
+    flex-flow: row wrap;
+
     height: inherit;
     background: inherit;
     box-shadow: inherit;
-    display: block;
     padding: 0;
 
     .tab-container {
       width: 210px;
-      float: left;
+      margin: 5px;
 
       .close-icon {
         display: none;
