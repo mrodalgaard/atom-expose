@@ -3,6 +3,8 @@
 Quick tab overview of open files. Similar to Mac OSX Exposé, Firefox Tab Group, Safari and Chrome Tab Overview, etc.
 
 The overview layout tries to simulate your current themes tab style.
+The text editor preview is taken from [Minimap](https://github.com/atom-minimap/minimap) if present.
+Shows file icons if the [file-icon package](https://github.com/DanBrooker/file-icons) is installed.
 
 ![expose-package](/screenshots/preview.png)
 
@@ -18,7 +20,8 @@ The overview layout tries to simulate your current themes tab style.
 - [ ] Stay updated on workspace changes
 - [ ] Show all project files options
 - [ ] Serialize enabled
-- [ ] Tab icons
+- [x] Show preview of images
+- [x] Tab icons
 
 > Contributions, bug reports and feature requests are very welcome.
 

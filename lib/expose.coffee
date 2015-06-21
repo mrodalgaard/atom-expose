@@ -21,9 +21,9 @@ module.exports = Expose =
     @subscriptions.add atom.commands.add 'atom-workspace', 'expose:toggle': => @toggle()
 
   deactivate: ->
+    @exposeView.destroy()
     @modalPanel.destroy()
     @subscriptions.dispose()
-    @exposeView.destroy()
 
   serialize: ->
     exposeViewState: @exposeView.serialize()
