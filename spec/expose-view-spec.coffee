@@ -6,7 +6,6 @@ describe "ExposeView", ->
   exposeView = null
 
   beforeEach ->
-    pathname = 'dummyData'
     exposeView = new ExposeView
     atom.project.setPaths [path.join(__dirname, 'fixtures')]
 

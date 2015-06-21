@@ -6,13 +6,14 @@
 module.exports =
 class ExposeView extends View
   @content: (item) ->
+    title = item?.getTitle() ? 'newfile'
     @div click: 'activateTab', class: 'tab-container', =>
       @div class: 'tab', =>
-        @div class: 'title icon-file-text', 'data-name': item.getTitle(), item.getTitle()
+        @div class: 'title icon-file-text', 'data-name': title, title
         @div click: 'closeTab', class: 'close-icon'
       @div outlet: 'tabBody', class: 'tab-body'
 
-  initialize: (@item) ->
+  initialize: (@item = {}) ->
     @handleEvents()
     @populateTabBody()
 
@@ -21,9 +22,10 @@ class ExposeView extends View
     return if @drawCanvas()
     @drawFallback()
 
-  drawFallback: (item = @item) ->
+  drawFallback: ->
+    objectType = @item.constructor.name
     @tabBody.html $$ ->
-      if item.constructor.name is 'TextEditor'
+      if objectType is 'TextEditor'
         @a class: 'icon-file-code'
       else
         @a class: 'icon-file-text'
