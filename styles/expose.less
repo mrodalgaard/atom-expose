@@ -52,19 +52,30 @@
         margin: 5px 4px;
         padding: 5px;
         text-align: center;
+        cursor: pointer;
 
         &>* {
           width: 190px;
           height: 130px;
         }
 
-        i::before {
+        a::before {
           position: relative;
           top: 25%;
           font-size: 64px;
-          width: initial;
+          height: 64px;
+          width: 64px;
+        }
+
+        a.animate::before {
+          -webkit-animation: spin 1s infinite linear;
         }
       }
     }
+  }
+
+  @-webkit-keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
   }
 }

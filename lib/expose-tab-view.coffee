@@ -1,4 +1,4 @@
-{View} = require 'atom-space-pen-views'
+{View, $$} = require 'atom-space-pen-views'
 {CompositeDisposable} = require 'atom'
 
 {exposeHide} = require './util'
@@ -13,6 +13,7 @@ class ExposeView extends View
       @div outlet: 'tabBody', class: 'tab-body'
 
   initialize: (@item) ->
+    @handleEvents()
     @populateTabBody()
 
   populateTabBody: ->
@@ -20,33 +21,32 @@ class ExposeView extends View
     return if @drawCanvas()
     @drawFallback()
 
-  drawFallback: ->
-    element = document.createElement 'i'
-    if @item.constructor.name is 'TextEditor'
-      element.className = 'icon-file-code'
-    else
-      element.className = 'icon-file-text'
-    @tabBody.append(element)
+  drawFallback: (item = @item) ->
+    @tabBody.html $$ ->
+      if item.constructor.name is 'TextEditor'
+        @a class: 'icon-file-code'
+      else
+        @a class: 'icon-file-text'
 
   drawImage: ->
     return unless @item.constructor.name is 'ImageEditor'
-
-    element = document.createElement 'img'
-    element.src = @item.file.path
-    @tabBody.append(element)
+    filePath = @item.file.path
+    @tabBody.html $$ ->
+      @img src: filePath
 
   drawCanvas: ->
     return unless @item.constructor.name is 'TextEditor'
 
-    minimapCanvas = @getMinimapCanvas()
+    return unless minimapCanvas = @getMinimapCanvas()
 
-    # Check if canvas was found and is not empty
-    return unless minimapCanvas
-    return if minimapCanvas.toDataURL() is document.createElement('canvas').toDataURL()
-
-    element = document.createElement 'canvas'
-    element.getContext('2d').drawImage(minimapCanvas, 0, 0)
-    @tabBody.append(element)
+    # Draw sync link if canvas is empty
+    if minimapCanvas.toDataURL() is document.createElement('canvas').toDataURL()
+      @tabBody.html $$ ->
+        @a class: 'icon-sync'
+    else
+      element = document.createElement 'canvas'
+      element.getContext('2d').drawImage(minimapCanvas, 0, 0)
+      @tabBody.html element
 
   getMinimapCanvas: ->
     loadedPackages = atom.packages.loadedPackages
@@ -60,7 +60,6 @@ class ExposeView extends View
       minimapView = atom.views.getView(minimap)
       minimapView.querySelectorAll('atom-text-editor-minimap /deep/ canvas')[0]
     catch error
-      return
 
   activateTab: (event) ->
     event.stopPropagation()
@@ -71,6 +70,13 @@ class ExposeView extends View
     event.stopPropagation()
     atom.workspace.paneForItem(@item).destroyItem(@item)
     @destroy()
+
+  handleEvents: ->
+    @on 'click', '.icon-sync', (event) =>
+      event.stopPropagation()
+      event.target.className += ' animate'
+      atom.workspace.paneForItem(@item).activateItem(@item)
+      setTimeout (=> @populateTabBody()), 1000
 
   destroy: ->
     @remove()
