@@ -19,7 +19,7 @@
     padding: 0;
 
     .tab-container {
-      width: 200px;
+      width: 210px;
       float: left;
 
       .close-icon {
@@ -38,14 +38,19 @@
 
       .tab {
         margin: 0px 25px 2px 25px;
+
+        .title::before {
+          margin-right: 5px;
+        }
       }
 
       .tab-body {
         background: @base-background-color;
         border-top: solid 1px @text-color-info;
         transition: box-shadow 0.5s ease;
+        height: 140px;
         margin: 5px 4px;
-        height: 130px;
+        padding: 5px;
 
         p {
           padding-top: 50px;
