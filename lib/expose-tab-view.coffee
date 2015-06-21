@@ -68,6 +68,41 @@ class ExposeView extends View
       minimapView.querySelectorAll('atom-text-editor-minimap /deep/ canvas')[0]
     catch error
 
+  # XXX: Experiment with drawing DOM objects into canvas and scale
+  # to not depend on minimap and be able to draw every type of view
+  # Mozilla: https://goo.gl/0QPvF7
+  # rasterizeHTML: https://goo.gl/HIKjyN
+  drawCanvasExperiment: ->
+    canvas = document.createElement 'canvas'
+    ctx = canvas.getContext '2d'
+
+    element = atom.views.getView(@item)
+    htmlString = element.querySelectorAll('atom-text-editor /deep/ .editor--private')[0].innerHTML
+
+    data =  """
+            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+              <foreignObject width="100%" height="100%">
+                <div xmlns="http://www.w3.org/1999/xhtml" style="font-size:40px">
+                  #{htmlString}
+                </div>
+              </foreignObject>
+            </svg>
+            """
+
+    DOMURL = window.URL || window.webkitURL || window
+
+    img = new Image
+    svg = new Blob([data], {type: 'image/svg+xml;charset=utf-8'})
+    url = DOMURL.createObjectURL(svg)
+
+    img.onload = ->
+      console.log 'SVG image loaded'
+      ctx.drawImage(img, 0, 0)
+      DOMURL.revokeObjectURL(url)
+
+    img.src = url
+    @tabBody.html canvas
+
   activateTab: (event) ->
     event?.stopPropagation()
     atom.workspace.paneForItem(@item).activateItem(@item)
