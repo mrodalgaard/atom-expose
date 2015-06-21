@@ -3,7 +3,10 @@ path = require 'path'
 ExposeTabView = require '../lib/expose-tab-view'
 
 describe "ExposeTabView", ->
+  workspaceElement = null
+
   beforeEach ->
+    workspaceElement = atom.views.getView(atom.workspace)
     atom.project.setPaths [path.join(__dirname, 'fixtures')]
 
   describe "populateTabBody()", ->
@@ -12,6 +15,7 @@ describe "ExposeTabView", ->
       expect(Object.getOwnPropertyNames(exposeTabView.item).length).toBe 0
       expect(exposeTabView.find('.title').text()).toBe 'newfile'
       expect(exposeTabView.tabBody.find('a').length).toBe 1
+      expect(exposeTabView.tabBody.find('a').attr('class')).toContain 'text'
 
     it "populates normal text editor", ->
       waitsForPromise ->
@@ -23,6 +27,7 @@ describe "ExposeTabView", ->
         expect(exposeTabView.item).toBeDefined()
         expect(exposeTabView.title).toBe 'sample1.txt'
         expect(exposeTabView.tabBody.find('a').length).toBe 1
+        expect(exposeTabView.tabBody.find('a').attr('class')).toContain 'code'
 
     it "populates image editor", ->
       waitsForPromise ->
@@ -35,11 +40,27 @@ describe "ExposeTabView", ->
         expect(exposeTabView.item).toBeDefined()
         expect(exposeTabView.title).toBe 'preview.png'
         expect(exposeTabView.tabBody.find('img').length).toBe 1
+        expect(exposeTabView.tabBody.find('img').attr('src')).toBeDefined()
+
+    it "populates settings view", ->
+      waitsForPromise ->
+        jasmine.attachToDOM(workspaceElement)
+        atom.packages.activatePackage 'settings-view'
+      runs ->
+        atom.commands.dispatch(atom.views.getView(atom.workspace), 'settings-view:open')
+        waitsFor ->
+          atom.workspace.getActivePaneItem()?
+        runs ->
+          item = atom.workspace.getActivePaneItem()
+          exposeTabView = new ExposeTabView(item)
+
+          expect(exposeTabView.title).toBe 'Settings'
+          expect(exposeTabView.tabBody.find('a').length).toBe 1
+          expect(exposeTabView.tabBody.find('a').attr('class')).toContain 'tools'
 
     it "populates text editor with minimap activated", ->
       waitsForPromise ->
         atom.packages.activatePackage 'minimap'
-        workspaceElement = atom.views.getView(atom.workspace)
         jasmine.attachToDOM(workspaceElement)
         atom.workspace.open 'sample1.txt'
       runs ->

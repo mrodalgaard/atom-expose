@@ -30,10 +30,10 @@ class ExposeView extends View
   drawFallback: ->
     objectClass = @item.constructor.name
     @tabBody.html $$ ->
-      if objectClass is 'TextEditor'
-        @a class: 'icon-file-code'
-      else
-        @a class: 'icon-file-text'
+      @a class: switch objectClass
+        when 'TextEditor' then 'icon-file-code'
+        when 'SettingsView' then 'icon-tools'
+        else 'icon-file-text'
 
   drawImage: ->
     return unless @item.constructor.name is 'ImageEditor'
@@ -51,10 +51,9 @@ class ExposeView extends View
       @tabBody.html $$ ->
         @a class: 'icon-sync'
     else
-      # TODO: Research use of space-pen @tag
-      element = document.createElement 'canvas'
-      element.getContext('2d').drawImage(minimapCanvas, 0, 0)
-      @tabBody.html element
+      canvas = document.createElement 'canvas'
+      canvas.getContext('2d').drawImage(minimapCanvas, 0, 0)
+      @tabBody.html canvas
 
   getMinimapCanvas: ->
     loadedPackages = atom.packages.loadedPackages

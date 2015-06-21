@@ -19,8 +19,7 @@ class ExposeView extends View
 
     @exposeHide.on 'click', exposeHide
     @exposeSettings.on 'click', ->
-      editor = atom.workspace.getActiveTextEditor()
-      atom.commands.dispatch(atom.views.getView(editor), 'settings-view:view-installed-packages')
+      atom.commands.dispatch(atom.views.getView(atom.workspace), 'settings-view:view-installed-packages')
       exposeHide()
 
   serialize: ->

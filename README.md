@@ -13,7 +13,7 @@ Shows file icons if the [file-icon package](https://github.com/DanBrooker/file-i
 - [x] Basic exposé functionality
 - [x] Activate and close tabs
 - [x] Add tests
-- [ ] Add detailed unit tests
+- [x] Add detailed unit tests
 - [ ] Move / sortable tabs
 - [x] Tab preview images with fallback
 - [ ] Split overview into panels
