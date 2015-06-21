@@ -9,7 +9,7 @@ module.exports = Expose =
 
   activate: (state) ->
     @exposeView = new ExposeView(state.exposeViewState)
-    @modalPanel = atom.workspace.addModalPanel(item: @exposeView.getElement(), visible: false, className: 'exposeView')
+    @modalPanel = atom.workspace.addModalPanel(item: @exposeView, visible: false, className: 'expose-panel')
 
     # Make modal fill workspace
     @modalPanel.getItem().element.parentElement.style.left = '0'

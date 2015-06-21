@@ -25,9 +25,6 @@ class ExposeView extends View
   destroy: ->
     this.remove()
 
-  getElement: ->
-    this
-
   update: ->
     @tabList.empty()
     for pane in atom.workspace.getPanes()
