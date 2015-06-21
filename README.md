@@ -1,10 +1,10 @@
 # Atom Tabs Exposé
 
-Quick tab overview of open files. Similar to Mac OSX Exposé, Firefox Tab Group, Safari and Chrome Tab Overview, etc.
+Quick tab overview of open files. Similar to Mac OSX Exposé / Mission Control, Firefox Tab Group, Safari and Chrome Tab Overview, etc.
 
-The overview layout tries to simulate your current themes tab style.
-The text editor preview is taken from [Minimap](https://github.com/atom-minimap/minimap) if present.
-Shows file icons if the [file-icon package](https://github.com/DanBrooker/file-icons) is installed.
+The overview layout tries to simulate your current themes tab styling.
+The text editor preview is taken from [Minimap](https://github.com/atom-minimap/minimap) if present, else a suitable file icon is used.
+Shows file icons in tabs if the [file-icon package](https://github.com/DanBrooker/file-icons) is installed.
 
 ![expose-package](/screenshots/preview.png)
 
@@ -23,6 +23,7 @@ Shows file icons if the [file-icon package](https://github.com/DanBrooker/file-i
 - [x] Show preview of images
 - [x] Tab icons
 - [ ] Keyboard shortcuts (e.g. numbers)
+- [ ] Custom icons for more view classes
 
 > Contributions, bug reports and feature requests are very welcome.
 
