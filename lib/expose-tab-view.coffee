@@ -5,15 +5,20 @@
 
 module.exports =
 class ExposeView extends View
-  @content: (item) ->
-    title = item?.getTitle() ? 'newfile'
+  title: 'newfile'
+
+  @content: (title) ->
     @div click: 'activateTab', class: 'tab-container', =>
       @div class: 'tab', =>
         @div class: 'title icon-file-text', 'data-name': title, title
         @div click: 'closeTab', class: 'close-icon'
       @div outlet: 'tabBody', class: 'tab-body'
 
-  initialize: (@item = {}) ->
+  constructor: (@item = {}) ->
+    @title = item.getTitle?() if item?
+    super @title
+
+  initialize: ->
     @handleEvents()
     @populateTabBody()
 
@@ -23,9 +28,9 @@ class ExposeView extends View
     @drawFallback()
 
   drawFallback: ->
-    objectType = @item.constructor.name
+    objectClass = @item.constructor.name
     @tabBody.html $$ ->
-      if objectType is 'TextEditor'
+      if objectClass is 'TextEditor'
         @a class: 'icon-file-code'
       else
         @a class: 'icon-file-text'
@@ -46,6 +51,7 @@ class ExposeView extends View
       @tabBody.html $$ ->
         @a class: 'icon-sync'
     else
+      # TODO: Research use of space-pen @tag
       element = document.createElement 'canvas'
       element.getContext('2d').drawImage(minimapCanvas, 0, 0)
       @tabBody.html element
@@ -64,12 +70,12 @@ class ExposeView extends View
     catch error
 
   activateTab: (event) ->
-    event.stopPropagation()
+    event?.stopPropagation()
     atom.workspace.paneForItem(@item).activateItem(@item)
     exposeHide()
 
   closeTab: (event) ->
-    event.stopPropagation()
+    event?.stopPropagation()
     atom.workspace.paneForItem(@item).destroyItem(@item)
     @destroy()
 
@@ -81,5 +87,6 @@ class ExposeView extends View
       setTimeout (=> @populateTabBody()), 1000
 
   destroy: ->
+    @destroyed = true
     @remove()
     @disposables?.dispose()

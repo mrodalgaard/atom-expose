@@ -26,11 +26,11 @@ class ExposeView extends View
   serialize: ->
 
   destroy: ->
-    this.remove()
+    @remove()
+    @disposables?.dispose()
 
   update: ->
     @tabList.empty()
     for pane in atom.workspace.getPanes()
       for item in pane.getItems()
-        exposeTabView = new ExposeTabView(item)
-        @tabList.append(exposeTabView)
+        @tabList.append new ExposeTabView(item)
