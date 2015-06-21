@@ -15,7 +15,7 @@ Shows file icons if the [file-icon package](https://github.com/DanBrooker/file-i
 - [x] Add tests
 - [ ] Add detailed unit tests
 - [ ] Move / sortable tabs
-- [ ] Tab preview images with fallback
+- [x] Tab preview images with fallback
 - [ ] Split overview into panels
 - [ ] Stay updated on workspace changes
 - [ ] Show all project files options

@@ -15,9 +15,6 @@ class ExposeView extends View
   constructor: (serializedState) ->
     super
     @disposables = new CompositeDisposable
-
-    @update()
-
     @exposeHide.on 'click', exposeHide
 
   serialize: ->

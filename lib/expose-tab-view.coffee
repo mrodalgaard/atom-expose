@@ -13,38 +13,44 @@ class ExposeView extends View
       @div outlet: 'tabBody', class: 'tab-body'
 
   initialize: (@item) ->
+    @populateTabBody()
 
-    # FIXME: Is being called double sometimes
+  populateTabBody: ->
+    return if @drawImage()
+    return if @drawCanvas()
+    @drawFallback()
 
-    if item.constructor.name is 'ImageEditor'
-      @drawImage()
+  drawFallback: ->
+    element = document.createElement 'i'
+    if @item.constructor.name is 'TextEditor'
+      element.className = 'icon-file-code'
     else
-      @drawCanvas()
-
-  drawCanvas: ->
-    minimapCanvas = @getMinimapCanvas()
-
-    # TODO: Create fallback if minimap is not loaded or has no content
-    return if !minimapCanvas
-
-    element = document.createElement 'canvas'
-    element.width = 190
-    element.height = 130
-    element.getContext('2d').drawImage(minimapCanvas, 0, 0)
-
+      element.className = 'icon-file-text'
     @tabBody.append(element)
 
   drawImage: ->
-    element = document.createElement 'img'
-    element.width = 190
-    element.height = 120
-    element.src = @item.file.path
+    return unless @item.constructor.name is 'ImageEditor'
 
+    element = document.createElement 'img'
+    element.src = @item.file.path
+    @tabBody.append(element)
+
+  drawCanvas: ->
+    return unless @item.constructor.name is 'TextEditor'
+
+    minimapCanvas = @getMinimapCanvas()
+
+    # Check if canvas was found and is not empty
+    return unless minimapCanvas
+    return if minimapCanvas.toDataURL() is document.createElement('canvas').toDataURL()
+
+    element = document.createElement 'canvas'
+    element.getContext('2d').drawImage(minimapCanvas, 0, 0)
     @tabBody.append(element)
 
   getMinimapCanvas: ->
     loadedPackages = atom.packages.loadedPackages
-    return if !loadedPackages.minimap
+    return unless loadedPackages.minimap
 
     # HACK: Steal canvas from minimap
     # Fails if item does not have minimap object
