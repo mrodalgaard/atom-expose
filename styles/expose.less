@@ -3,16 +3,16 @@
 .expose-view {
   @shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.5);
 
-  .expose-close {
-    float: right;
-    &::before {
-      font-size: 24px;
+  .expose-top {
+    text-align: right;
+
+    a::before {
+      .icon-resize(32px);
     }
   }
 
   // Tab bar overrides
   .tab-bar {
-    display: inline-flex;
     justify-content: space-around;
     flex-flow: row wrap;
 
@@ -65,9 +65,7 @@
         a::before {
           position: relative;
           top: 25%;
-          font-size: 64px;
-          height: 64px;
-          width: 64px;
+          .icon-resize(64px);
         }
 
         a.animate::before {
@@ -76,9 +74,15 @@
       }
     }
   }
+}
 
-  @-webkit-keyframes spin {
-    from {transform:rotate(0deg);}
-    to {transform:rotate(360deg);}
-  }
+.icon-resize(@size) {
+  font-size: @size;
+  height: @size;
+  width: @size;
+}
+
+@-webkit-keyframes spin {
+  from {transform:rotate(0deg);}
+  to {transform:rotate(360deg);}
 }

@@ -9,13 +9,19 @@ class ExposeView extends View
   @content: ->
     @div class: 'expose-view', =>
       @div class: 'expose-top', =>
-        @a outlet: 'exposeHide', class: 'icon-x expose-close'
+        @a outlet: 'exposeSettings', class: 'icon-gear'
+        @a outlet: 'exposeHide', class: 'icon-x'
       @div outlet: 'tabList', class: 'tab-bar'
 
   constructor: (serializedState) ->
     super
     @disposables = new CompositeDisposable
+
     @exposeHide.on 'click', exposeHide
+    @exposeSettings.on 'click', ->
+      editor = atom.workspace.getActiveTextEditor()
+      atom.commands.dispatch(atom.views.getView(editor), 'settings-view:view-installed-packages')
+      exposeHide()
 
   serialize: ->
 
