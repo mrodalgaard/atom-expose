@@ -30,6 +30,5 @@ class ExposeView extends View
 
   update: ->
     @tabList.empty()
-    for pane in atom.workspace.getPanes()
-      for item in pane.getItems()
-        @tabList.append new ExposeTabView(item)
+    for item in atom.workspace.getPaneItems()
+      @tabList.append new ExposeTabView(item)

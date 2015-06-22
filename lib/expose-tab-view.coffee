@@ -33,6 +33,9 @@ class ExposeView extends View
       @a class: switch objectClass
         when 'TextEditor' then 'icon-file-code'
         when 'SettingsView' then 'icon-tools'
+        when 'ArchiveEditor' then 'icon-file-zip'
+        when 'MarkdownPreviewView' then 'icon-markdown'
+        when 'ShowTodoView' then 'icon-checklist'
         else 'icon-file-text'
 
   drawImage: ->

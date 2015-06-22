@@ -23,7 +23,7 @@ Shows file icons in tabs if the [file-icon package](https://github.com/DanBrooke
 - [x] Show preview of images
 - [x] Tab icons
 - [ ] Keyboard shortcuts (e.g. numbers)
-- [ ] Custom icons for more view classes
+- [x] Custom icons for more view classes
 
 > Contributions, bug reports and feature requests are very welcome.
 

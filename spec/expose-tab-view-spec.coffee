@@ -12,9 +12,9 @@ describe "ExposeTabView", ->
   describe "populateTabBody()", ->
     it "can populate empty item", ->
       exposeTabView = new ExposeTabView
-      expect(Object.getOwnPropertyNames(exposeTabView.item).length).toBe 0
+      expect(Object.getOwnPropertyNames(exposeTabView.item)).toHaveLength 0
       expect(exposeTabView.find('.title').text()).toBe 'newfile'
-      expect(exposeTabView.tabBody.find('a').length).toBe 1
+      expect(exposeTabView.tabBody.find('a')).toHaveLength 1
       expect(exposeTabView.tabBody.find('a').attr('class')).toContain 'text'
 
     it "populates normal text editor", ->
@@ -26,7 +26,7 @@ describe "ExposeTabView", ->
 
         expect(exposeTabView.item).toBeDefined()
         expect(exposeTabView.title).toBe 'sample1.txt'
-        expect(exposeTabView.tabBody.find('a').length).toBe 1
+        expect(exposeTabView.tabBody.find('a')).toHaveLength 1
         expect(exposeTabView.tabBody.find('a').attr('class')).toContain 'code'
 
     it "populates image editor", ->
@@ -39,7 +39,7 @@ describe "ExposeTabView", ->
 
         expect(exposeTabView.item).toBeDefined()
         expect(exposeTabView.title).toBe 'preview.png'
-        expect(exposeTabView.tabBody.find('img').length).toBe 1
+        expect(exposeTabView.tabBody.find('img')).toHaveLength 1
         expect(exposeTabView.tabBody.find('img').attr('src')).toBeDefined()
 
     it "populates settings view", ->
@@ -47,7 +47,7 @@ describe "ExposeTabView", ->
         jasmine.attachToDOM(workspaceElement)
         atom.packages.activatePackage 'settings-view'
       runs ->
-        atom.commands.dispatch(atom.views.getView(atom.workspace), 'settings-view:open')
+        atom.commands.dispatch workspaceElement, 'settings-view:open'
         waitsFor ->
           atom.workspace.getActivePaneItem()?
         runs ->
@@ -55,8 +55,36 @@ describe "ExposeTabView", ->
           exposeTabView = new ExposeTabView(item)
 
           expect(exposeTabView.title).toBe 'Settings'
-          expect(exposeTabView.tabBody.find('a').length).toBe 1
+          expect(exposeTabView.tabBody.find('a')).toHaveLength 1
           expect(exposeTabView.tabBody.find('a').attr('class')).toContain 'tools'
+
+    it "populates archive view", ->
+      waitsForPromise ->
+        atom.packages.activatePackage 'archive-view'
+        atom.workspace.open 'archive.zip'
+      runs ->
+        item = atom.workspace.getActivePaneItem()
+        exposeTabView = new ExposeTabView(item)
+
+        expect(exposeTabView.title).toBe 'archive.zip'
+        expect(exposeTabView.tabBody.find('a')).toHaveLength 1
+        expect(exposeTabView.tabBody.find('a').attr('class')).toContain 'zip'
+
+    it "populates markdown view", ->
+      waitsForPromise ->
+        atom.packages.activatePackage 'markdown-preview'
+        atom.workspace.open '../../README.md'
+      runs ->
+        item = null
+        atom.commands.dispatch workspaceElement, 'markdown-preview:toggle'
+
+        waitsFor ->
+          item = atom.workspace.getPaneItems()[1]
+        runs ->
+          exposeTabView = new ExposeTabView(item)
+          expect(exposeTabView.title).toBe 'Markdown Preview'
+          expect(exposeTabView.tabBody.find('a')).toHaveLength 1
+          expect(exposeTabView.tabBody.find('a').attr('class')).toContain 'markdown'
 
     it "populates text editor with minimap activated", ->
       waitsForPromise ->
@@ -69,7 +97,7 @@ describe "ExposeTabView", ->
 
         expect(exposeTabView.item).toBeDefined()
         expect(exposeTabView.title).toBe 'sample1.txt'
-        expect(exposeTabView.tabBody.find('canvas').length).toBe 1
+        expect(exposeTabView.tabBody.find('canvas')).toHaveLength 1
 
   describe "closeTab()", ->
     it "destroys selected tab item", ->
@@ -79,13 +107,13 @@ describe "ExposeTabView", ->
         item = atom.workspace.getActivePaneItem()
         exposeTabView = new ExposeTabView(item)
 
-        expect(atom.workspace.getTextEditors().length).toBe 1
+        expect(atom.workspace.getTextEditors()).toHaveLength 1
         expect(exposeTabView.title).toBe 'sample1.txt'
         expect(exposeTabView.destroyed).toBeFalsy()
 
         exposeTabView.closeTab()
 
-        expect(atom.workspace.getTextEditors().length).toBe 0
+        expect(atom.workspace.getTextEditors()).toHaveLength 0
         expect(exposeTabView.destroyed).toBeTruthy()
 
   describe "activateTab()", ->
@@ -98,7 +126,7 @@ describe "ExposeTabView", ->
         activeItem = atom.workspace.getActivePaneItem()
         exposeTabView = new ExposeTabView(items[0])
 
-        expect(items.length).toBe 2
+        expect(items).toHaveLength 2
         expect(activeItem.getTitle()).toBe 'sample2.txt'
         expect(exposeTabView.title).toBe 'sample1.txt'
 

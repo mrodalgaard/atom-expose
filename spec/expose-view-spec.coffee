@@ -16,6 +16,6 @@ describe "ExposeView", ->
         atom.workspace.open 'sample2.txt'
 
     it "populates list of open tabs", ->
-      expect(exposeView.tabList.children().length).toBe 0
+      expect(exposeView.tabList.children()).toHaveLength 0
       exposeView.update()
-      expect(exposeView.tabList.children().length).toBe 2
+      expect(exposeView.tabList.children()).toHaveLength 2
