@@ -1,2 +1,5 @@
-'atom-workspace':
+'.platform-darwin atom-workspace':
   'cmd-shift-e': 'expose:toggle'
+
+'.platform-win32 atom-workspace, .platform-linux atom-workspace':
+  'alt-shift-e': 'expose:toggle'
