@@ -1,5 +1,13 @@
 @import "ui-variables";
 
+atom-panel.modal.expose-panel {
+  background-color: rgba(0, 0, 0, 0.8);
+
+  &::before {
+    background-color: transparent;
+  }
+}
+
 .expose-view {
   @shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.5);
 
@@ -23,7 +31,7 @@
 
     .tab-container {
       width: 210px;
-      margin: 5px;
+      margin: 10px 5px;
 
       .close-icon {
         display: none;
@@ -40,7 +48,7 @@
       }
 
       .tab {
-        margin: 0px 25px 2px 25px;
+        margin: 0 auto;
 
         .title::before {
           margin-right: 5px;
