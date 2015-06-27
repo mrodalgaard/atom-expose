@@ -4,11 +4,11 @@ Quick tab overview of open files. Similar to Mac OSX Exposé / Mission Control, 
 
 Toggle expose with <kbd>cmd-shift-e</kbd> on Mac OSX and <kbd>alt-shift-e</kbd> on Linux and Windows.
 
-The overview layout tries to simulate your current themes tab styling.
-The text editor preview is taken from [Minimap](https://github.com/atom-minimap/minimap) if present, else a suitable file icon is used.
-Shows file icons in tabs if the [file-icon package](https://github.com/DanBrooker/file-icons) is installed.
+* The overview layout tries to simulate your current themes tab styling.
+* The text editor preview is taken from [Minimap](https://github.com/atom-minimap/minimap) if present, else a suitable file icon is used.
+* Shows file icons in tabs if the [file-icon package](https://github.com/DanBrooker/file-icons) is installed.
 
-![expose-package](/screenshots/preview.png)
+![expose-package](https://raw.githubusercontent.com/mrodalgaard/atom-expose/master/screenshots/preview.png)
 
 ## Tasks
 
@@ -16,16 +16,17 @@ Shows file icons in tabs if the [file-icon package](https://github.com/DanBrooke
 - [x] Activate and close tabs
 - [x] Add tests
 - [x] Add detailed unit tests
-- [ ] Move / sortable tabs
 - [x] Tab preview images with fallback
+- [x] Show preview of images
+- [x] Tab icons
+- [x] Custom icons for more view classes
+- [ ] Move / sortable tabs
 - [ ] Split overview into panels
 - [ ] Stay updated on workspace changes
 - [ ] Show all project files options
 - [ ] Serialize enabled
-- [x] Show preview of images
-- [x] Tab icons
-- [ ] Keyboard shortcuts (e.g. numbers)
-- [x] Custom icons for more view classes
+- [ ] Keyboard shortcuts (e.g. numbers)
+- [ ] Remove dependency on minimap for previews
 
 > Contributions, bug reports and feature requests are very welcome.
 
