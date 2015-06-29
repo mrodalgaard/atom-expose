@@ -1,0 +1,33 @@
+@import "ui-variables";
+
+/* Theme adjustments */
+
+.theme-atom-light-ui {
+  atom-panel.modal.expose-panel {
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+}
+
+.theme-one-light-ui, .theme-one-dark-ui {
+  atom-panel.modal.expose-panel {
+    background-color: inherit;
+
+    &::before {
+      opacity: 0;
+    }
+
+    .expose-view .tab {
+      background-color: @tab-background-color;
+      margin: -5px 4px;
+    }
+  }
+}
+
+.theme-seti-ui {
+  atom-panel.modal.expose-panel {
+    .tab {
+      max-width: inherit;
+      margin: 0 3px 0 19px;
+    }
+  }
+}
