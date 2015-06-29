@@ -20,12 +20,12 @@ Toggle expose with <kbd>cmd-shift-e</kbd> on Mac OSX and <kbd>alt-shift-e</kbd> 
 - [x] Show preview of images
 - [x] Tab icons
 - [x] Custom icons for more view classes
+- [x] Keyboard shortcuts (e.g. numbers)
 - [ ] Move / sortable tabs
 - [ ] Split overview into panels
 - [ ] Stay updated on workspace changes
 - [ ] Show all project files options
 - [ ] Serialize enabled
-- [ ] Keyboard shortcuts (e.g. numbers)
 - [ ] Remove dependency on minimap for previews
 
 > Contributions, bug reports and feature requests are very welcome.

@@ -14,9 +14,9 @@ class ExposeView extends View
         @div click: 'closeTab', class: 'close-icon'
       @div outlet: 'tabBody', class: 'tab-body', style: "border-color: #{color}"
 
-  constructor: (@item = {}, color = '#000') ->
+  constructor: (@item = {}, @color = '#000') ->
     @title = item.getTitle?() if item?
-    super(@title, color)
+    super(@title, @color)
 
   initialize: ->
     @handleEvents()
