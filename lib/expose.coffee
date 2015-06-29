@@ -11,14 +11,20 @@ module.exports = Expose =
     @exposeView = new ExposeView(state.exposeViewState)
     @modalPanel = atom.workspace.addModalPanel(item: @exposeView, visible: false, className: 'expose-panel')
 
-    # Make modal fill workspace
-    @modalPanel.getItem().element.parentElement.style.left = '0'
-    @modalPanel.getItem().element.parentElement.style.margin = 'auto'
-    @modalPanel.getItem().element.parentElement.style.width = '100%'
-    @modalPanel.getItem().element.parentElement.style.height = '100%'
-
     @subscriptions = new CompositeDisposable
-    @subscriptions.add atom.commands.add 'atom-workspace', 'expose:toggle': => @toggle()
+
+    @subscriptions.add @modalPanel.onDidChangeVisible (visible) =>
+      @exposeView.didChangeVisible(visible)
+
+      # EXPERIMENTAL: Add blur effect to workspace when modal is visible.
+      # This can be dangerous if onDidChangeVisible does not get triggered
+      # for some reason. Then the blur effect is persistent on the workspace.
+      workspaceView = atom.views.getView atom.workspace
+      workspaceElement = workspaceView.getElementsByTagName('atom-workspace-axis')[0]
+      workspaceElement.classList.toggle('expose-blur', visible)
+
+    @subscriptions.add atom.commands.add 'atom-workspace',
+      'expose:toggle': => @toggle()
 
   deactivate: ->
     @exposeView.destroy()

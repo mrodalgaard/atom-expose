@@ -7,7 +7,7 @@ ExposeTabView = require './expose-tab-view'
 module.exports =
 class ExposeView extends View
   @content: ->
-    @div class: 'expose-view', =>
+    @div class: 'expose-view animate', =>
       @div class: 'expose-top', =>
         @a outlet: 'exposeSettings', class: 'icon-gear'
         @a outlet: 'exposeHide', class: 'icon-x'
@@ -27,6 +27,9 @@ class ExposeView extends View
   destroy: ->
     @remove()
     @disposables?.dispose()
+
+  didChangeVisible: (visible) ->
+    setTimeout (=> @element.classList.toggle('visible', visible)), 0
 
   update: ->
     @tabList.empty()
