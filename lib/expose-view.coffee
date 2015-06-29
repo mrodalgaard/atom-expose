@@ -38,7 +38,13 @@ class ExposeView extends View
   didChangeVisible: (visible) ->
     setTimeout (=> @element.classList.toggle('visible', visible)), 0
 
+  getGroupColor: (n) ->
+    colors = ['#3498db', '#e74c3c', '#2ecc71', '#9b59b6']
+    colors[n % colors.length]
+
   update: ->
     @tabList.empty()
-    for item in atom.workspace.getPaneItems()
-      @tabList.append new ExposeTabView(item)
+    for pane, i in atom.workspace.getPanes()
+      color = @getGroupColor(i)
+      for item in pane.getItems()
+        @tabList.append new ExposeTabView(item, color)

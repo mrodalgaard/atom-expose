@@ -7,16 +7,16 @@ module.exports =
 class ExposeView extends View
   title: 'newfile'
 
-  @content: (title) ->
+  @content: (title, color) ->
     @div click: 'activateTab', class: 'tab-container', =>
       @div class: 'tab', =>
         @div class: 'title icon-file-text', 'data-name': title, title
         @div click: 'closeTab', class: 'close-icon'
-      @div outlet: 'tabBody', class: 'tab-body'
+      @div outlet: 'tabBody', class: 'tab-body', style: "border-color: #{color}"
 
-  constructor: (@item = {}) ->
+  constructor: (@item = {}, color = '#000') ->
     @title = item.getTitle?() if item?
-    super @title
+    super(@title, color)
 
   initialize: ->
     @handleEvents()
