@@ -10,23 +10,30 @@ class ExposeView extends View
     @div class: 'expose-view animate', =>
       @div class: 'expose-top', =>
         @a outlet: 'exposeSettings', class: 'icon-gear'
-        @a outlet: 'exposeHide', class: 'icon-x'
+        @a class: 'icon-x'
       @div outlet: 'tabList', class: 'tab-bar'
 
   constructor: (serializedState) ->
     super
     @disposables = new CompositeDisposable
 
-    @exposeHide.on 'click', exposeHide
-    @exposeSettings.on 'click', ->
-      atom.commands.dispatch(atom.views.getView(atom.workspace), 'settings-view:view-installed-packages')
-      exposeHide()
+  initialize: ->
+    @handleEvents()
 
   serialize: ->
 
   destroy: ->
     @remove()
     @disposables?.dispose()
+
+  handleEvents: ->
+    @exposeSettings.on 'click', ->
+      atom.commands.dispatch(atom.views.getView(atom.workspace), 'settings-view:view-installed-packages')
+
+    # This event gets propagated from most element clicks on top
+    @on 'click', (event) ->
+      event.stopPropagation()
+      exposeHide()
 
   didChangeVisible: (visible) ->
     setTimeout (=> @element.classList.toggle('visible', visible)), 0

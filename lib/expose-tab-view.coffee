@@ -107,9 +107,7 @@ class ExposeView extends View
     @tabBody.html canvas
 
   activateTab: (event) ->
-    event?.stopPropagation()
     atom.workspace.paneForItem(@item).activateItem(@item)
-    exposeHide()
 
   closeTab: (event) ->
     event?.stopPropagation()
