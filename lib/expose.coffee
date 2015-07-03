@@ -6,6 +6,11 @@ module.exports = Expose =
   exposeView: null
   modalPanel: null
 
+  config:
+    useAnimations:
+      type: 'boolean'
+      default: true
+
   activate: (state) ->
     @exposeView = new ExposeView(state.exposeViewState)
     @modalPanel = atom.workspace.addModalPanel(item: @exposeView, visible: false, className: 'expose-panel')
@@ -20,6 +25,7 @@ module.exports = Expose =
       # for some reason. Then the blur effect is persistent on the workspace.
       workspaceView = atom.views.getView atom.workspace
       workspaceElement = workspaceView.getElementsByTagName('atom-workspace-axis')[0]
+      visible = false unless atom.config.get 'expose.useAnimations'
       workspaceElement.classList.toggle('expose-blur', visible)
 
     @disposables.add atom.commands.add 'atom-workspace',

@@ -9,7 +9,7 @@ class ExposeView extends View
   items: []
 
   @content: ->
-    @div class: 'expose-view animate', tabindex: -1, =>
+    @div class: 'expose-view', tabindex: -1, =>
       @div class: 'expose-top', =>
         @a outlet: 'exposeSettings', class: 'icon-gear'
         @a class: 'icon-x'
@@ -36,6 +36,9 @@ class ExposeView extends View
     @on 'click', (event) ->
       event.stopPropagation()
       exposeHide()
+
+    @disposables.add atom.config.observe 'expose.useAnimations', (value) =>
+      @element.classList.toggle('animate', value)
 
     @disposables.add atom.commands.add @element,
       'core:confirm': -> exposeHide()

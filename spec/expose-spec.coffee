@@ -46,6 +46,22 @@ describe "Expose", ->
         atom.commands.dispatch workspaceElement, 'expose:toggle'
         expect(exposeElement).not.toBeVisible()
 
+    it "disables animations with config", ->
+      atom.commands.dispatch workspaceElement, 'expose:toggle'
+
+      waitsForPromise ->
+        activationPromise
+
+      runs ->
+        exposeElement = workspaceElement.querySelector('.expose-view')
+        expect(exposeElement.classList.toString()).toContain 'animate'
+
+        atom.commands.dispatch workspaceElement, 'expose:toggle'
+        atom.config.set('expose.useAnimations', false)
+
+        atom.commands.dispatch workspaceElement, 'expose:toggle'
+        expect(exposeElement.classList.toString()).not.toContain 'animate'
+
   describe "util::exposeHide", ->
     {exposeHide} = require '../lib/util'
 
