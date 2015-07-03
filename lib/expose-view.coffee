@@ -78,3 +78,4 @@ class ExposeView extends View
     n = 1 if n < 1
     n = @items.length if n > 9 or n > @items.length
     @items[n-1]?.activateTab()
+    exposeHide()
