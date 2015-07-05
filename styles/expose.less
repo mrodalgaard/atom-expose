@@ -41,6 +41,7 @@ atom-panel.modal.expose-panel {
     .tab-container {
       width: 210px;
       margin: 10px 5px;
+      -webkit-user-drag: element;
 
       .close-icon {
         display: none;
@@ -58,6 +59,8 @@ atom-panel.modal.expose-panel {
 
       .tab {
         margin: 0 auto;
+        cursor: move;
+        -webkit-user-drag: initial;
 
         .title::before {
           margin-right: 5px;
@@ -107,6 +110,10 @@ atom-panel.modal.expose-panel {
 }
 
 /* Helpers */
+
+.ghost {
+  opacity: 0.4;
+}
 
 .icon-resize(@size) {
   font-size: @size;

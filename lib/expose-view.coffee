@@ -1,12 +1,13 @@
 {View} = require 'atom-space-pen-views'
 {CompositeDisposable} = require 'atom'
+Sortable = require 'sortablejs'
 
 ExposeTabView = require './expose-tab-view'
 {exposeHide} = require './util'
 
 module.exports =
 class ExposeView extends View
-  items: []
+  tabs: []
 
   @content: ->
     @div class: 'expose-view', tabindex: -1, =>
@@ -21,6 +22,7 @@ class ExposeView extends View
   initialize: ->
     @disposables = new CompositeDisposable
     @handleEvents()
+    @handleDrag()
 
   serialize: ->
 
@@ -53,6 +55,27 @@ class ExposeView extends View
       'expose:activate-8': => @activateTab(8)
       'expose:activate-9': => @activateTab(9)
 
+  handleDrag: ->
+    Sortable.create(
+      @tabList.context
+      ghostClass: 'ghost'
+      onEnd: (evt) => @moveTab(evt.oldIndex, evt.newIndex)
+    )
+
+  moveTab: (from, to) ->
+    return unless fromItem = @tabs[from]?.item
+    return unless toItem = @tabs[to]?.item
+
+    fromPane = atom.workspace.paneForItem(fromItem)
+    toPane = atom.workspace.paneForItem(toItem)
+
+    toPaneIndex = 0
+    for item, i in toPane.getItems()
+      toPaneIndex = i if item is toItem
+
+    fromPane.moveItemToPane(fromItem, toPane, toPaneIndex)
+    @update()
+
   didChangeVisible: (visible) ->
     if visible then @focus() else atom.workspace.getActivePane().activate()
 
@@ -65,17 +88,17 @@ class ExposeView extends View
 
   update: ->
     @tabList.empty()
-    @items = []
+    @tabs = []
 
     for pane, i in atom.workspace.getPanes()
       color = @getGroupColor(i)
       for item in pane.getItems()
         exposeTabView = new ExposeTabView(item, color)
-        @items.push exposeTabView
+        @tabs.push exposeTabView
         @tabList.append exposeTabView
 
   activateTab: (n = 1) ->
     n = 1 if n < 1
-    n = @items.length if n > 9 or n > @items.length
-    @items[n-1]?.activateTab()
+    n = @tabs.length if n > 9 or n > @tabs.length
+    @tabs[n-1]?.activateTab()
     exposeHide()
