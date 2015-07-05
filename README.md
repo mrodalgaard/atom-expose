@@ -27,8 +27,8 @@ Toggle expose with <kbd>cmd-shift-e</kbd> on Mac OSX and <kbd>alt-shift-e</kbd> 
 - [x] Tab icons
 - [x] Custom icons for more view classes
 - [x] Keyboard shortcuts (e.g. numbers)
-- [ ] Move / sortable tabs
-- [ ] Split overview into panels
+- [x] Move / sortable tabs
+- [ ] Split overview into panes
 - [ ] Stay updated on workspace changes
 - [ ] Show all project files options
 - [ ] Serialize enabled
