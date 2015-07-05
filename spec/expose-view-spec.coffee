@@ -61,7 +61,7 @@ describe "ExposeView", ->
       exposeView.activateTab()
       expect(atom.workspace.getActivePaneItem().getTitle()).toEqual 'sample1.txt'
 
-  fdescribe "moveTab(from, to)", ->
+  describe "moveTab(from, to)", ->
     beforeEach ->
       waitsForPromise ->
         atom.workspace.open 'sample1.txt'

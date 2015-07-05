@@ -1,3 +1,6 @@
+## 0.4.0
+* Sortable tabs by dragging
+
 ## 0.3.0
 * Scroll on tab overflow
 * Option to disable animations
