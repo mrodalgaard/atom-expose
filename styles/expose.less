@@ -23,64 +23,55 @@ atom-panel.modal.expose-panel {
     }
   }
 
-  // Tab bar overrides
-  .tab-bar {
+  .tab-list {
+    display: -webkit-flex;
     justify-content: space-around;
     flex-flow: row wrap;
-
-    height: initial;
-    background: inherit;
-    box-shadow: inherit;
-    border-bottom: none;
-    padding: 0;
-
-    &::after {
-      display: none;
-    }
 
     .tab-container {
       width: 210px;
       margin: 10px 5px;
       -webkit-user-drag: element;
+      border: #333 dashed 1px;
+      background: @base-background-color;
 
-      .close-icon {
-        display: none;
-      }
+      .tab {
+        height: 32px;
+        padding: 8px 2px;
+        text-align: center;
+        cursor: move;
 
-      &:hover {
-        .tab-body {
-          box-shadow: @shadow;
+        .title {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          margin: 0 15px;
+
+          &::before {
+            margin-right: 5px;
+          }
         }
 
         .close-icon {
-          display: block;
-        }
-      }
-
-      .tab {
-        margin: 0 auto;
-        cursor: move;
-        -webkit-user-drag: initial;
-
-        .title::before {
-          margin-right: 5px;
+          float: right;
+          margin-top: -17px;
+          cursor: pointer;
+          opacity: 0;
+          transition: opacity 0.2s;
         }
       }
 
       .tab-body {
-        background: @base-background-color;
         border-top-style: solid;
         border-top-width: 1px;
-        transition: box-shadow 0.3s ease;
         height: 140px;
-        margin: 5px 4px;
         padding: 5px;
+        overflow: hidden;
         text-align: center;
         cursor: pointer;
 
-        &>* {
-          width: 190px;
-          height: 130px;
+        img {
+          height: 100%;
         }
 
         a::before {
@@ -91,6 +82,16 @@ atom-panel.modal.expose-panel {
 
         a.animate::before {
           -webkit-animation: spin 1s infinite linear;
+        }
+      }
+
+      &:hover {
+        .tab-body {
+          box-shadow: @shadow;
+        }
+
+        .close-icon {
+          opacity: 1;
         }
       }
     }

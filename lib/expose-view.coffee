@@ -14,7 +14,7 @@ class ExposeView extends View
       @div class: 'expose-top', =>
         @a outlet: 'exposeSettings', class: 'icon-gear'
         @a class: 'icon-x'
-      @div outlet: 'tabList', class: 'tab-bar'
+      @div outlet: 'tabList', class: 'tab-list'
 
   constructor: (serializedState) ->
     super

@@ -11,7 +11,7 @@ class ExposeView extends View
     @div click: 'activateTab', class: 'tab-container', =>
       @div class: 'tab', =>
         @div class: 'title icon-file-text', 'data-name': title, title
-        @div click: 'closeTab', class: 'close-icon'
+        @div click: 'closeTab', class: 'close-icon icon-x'
       @div outlet: 'tabBody', class: 'tab-body', style: "border-color: #{color}"
 
   constructor: (@item = {}, @color = '#000') ->
@@ -33,6 +33,7 @@ class ExposeView extends View
       @a class: switch objectClass
         when 'TextEditor' then 'icon-file-code'
         when 'SettingsView' then 'icon-tools'
+        when 'ResultsPaneView' then 'icon-search'
         when 'ArchiveEditor' then 'icon-file-zip'
         when 'MarkdownPreviewView' then 'icon-markdown'
         when 'ShowTodoView' then 'icon-checklist'

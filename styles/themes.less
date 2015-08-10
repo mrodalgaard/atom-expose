@@ -15,19 +15,16 @@
     &::before {
       opacity: 0;
     }
-
-    .expose-view .tab {
-      background-color: @tab-background-color;
-      margin: -5px 4px;
-    }
   }
 }
 
-.theme-seti-ui {
-  atom-panel.modal.expose-panel {
-    .tab {
-      max-width: inherit;
-      margin: 0 3px 0 19px;
-    }
+.theme-atom-material-ui {
+  atom-panel.modal.overlay.from-top {
+    background-color: inherit;
+    padding: 10px;
+  }
+
+  .expose-view .tab-container {
+    background-color: @app-background-color;
   }
 }
