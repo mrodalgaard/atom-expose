@@ -8,8 +8,8 @@ class ExposeView extends View
   title: 'newfile'
 
   @content: (title, color) ->
-    @div click: 'activateTab', class: 'tab-container', =>
-      @div class: 'tab', =>
+    @div click: 'activateTab', class: 'tab', =>
+      @div class: 'tab-header', =>
         @div class: 'title icon-file-text', 'data-name': title, title
         @div click: 'closeTab', class: 'close-icon icon-x'
       @div outlet: 'tabBody', class: 'tab-body', style: "border-color: #{color}"
