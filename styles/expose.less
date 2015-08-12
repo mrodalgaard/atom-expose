@@ -11,6 +11,10 @@ atom-panel.modal.expose-panel {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
+atom-workspace-axis.expose-blur {
+  -webkit-filter: blur(5px)
+}
+
 .expose-view {
   @shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.5);
   height: 100%;
@@ -57,7 +61,7 @@ atom-panel.modal.expose-panel {
           margin-top: -17px;
           cursor: pointer;
           opacity: 0;
-          transition: opacity 0.2s;
+          transition: opacity 0.1s;
         }
       }
 
@@ -97,7 +101,8 @@ atom-panel.modal.expose-panel {
     }
   }
 
-  // Modal zoom animation
+/* Modal zoom animation */
+
   &.animate {
   	transform: scale(0.7);
   	opacity: 0;
@@ -108,25 +113,21 @@ atom-panel.modal.expose-panel {
   	transform: scale(1);
   	opacity: 1;
   }
-}
 
 /* Helpers */
 
-.ghost {
-  opacity: 0.4;
-}
+  .ghost {
+    opacity: 0.4;
+  }
 
-.icon-resize(@size) {
-  font-size: @size;
-  height: @size;
-  width: @size;
-}
+  @-webkit-keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+  }
 
-@-webkit-keyframes spin {
-  from {transform:rotate(0deg);}
-  to {transform:rotate(360deg);}
-}
-
-atom-workspace-axis.expose-blur {
-  -webkit-filter: blur(5px)
+  .icon-resize(@size) {
+    font-size: @size;
+    height: @size;
+    width: @size;
+  }
 }
