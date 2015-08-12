@@ -1,3 +1,7 @@
+## 0.5.0
+* Improved close icon
+* Completely new tab styling
+
 ## 0.4.0
 * Sortable tabs by dragging
 
