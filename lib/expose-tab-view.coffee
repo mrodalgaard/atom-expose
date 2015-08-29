@@ -30,7 +30,6 @@ class ExposeView extends View
   drawFallback: ->
     objectClass = @item.constructor.name
     iconClass = 'icon-' + @item.getIconName() if @item.getIconName
-    debugger
     @tabBody.html $$ ->
       @a class: iconClass || switch objectClass
         when 'TextEditor' then 'icon-file-code'
