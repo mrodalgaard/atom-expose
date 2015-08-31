@@ -29,8 +29,9 @@ class ExposeView extends View
 
   drawFallback: ->
     objectClass = @item.constructor.name
+    iconClass = 'icon-' + @item.getIconName() if @item.getIconName
     @tabBody.html $$ ->
-      @a class: switch objectClass
+      @a class: iconClass || switch objectClass
         when 'TextEditor' then 'icon-file-code'
         when 'SettingsView' then 'icon-tools'
         when 'ResultsPaneView' then 'icon-search'
