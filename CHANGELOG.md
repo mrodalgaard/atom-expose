@@ -1,3 +1,7 @@
+## 0.6.0
+* Change focus to item on click
+* Better extraction of tab icon
+
 ## 0.5.0
 * Improved close icon
 * Completely new tab styling
