@@ -5,6 +5,9 @@ notifications:
 
 script: 'curl -s https://raw.githubusercontent.com/atom/ci/master/build-package.sh | sh'
 
+env:
+  - APM_TEST_PACKAGES="minimap"
+
 git:
   depth: 10
 
