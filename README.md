@@ -1,4 +1,4 @@
-# Atom Tabs Exposé
+# Atom Tabs Exposé [![Build Status](https://travis-ci.org/mrodalgaard/atom-expose.svg)](https://travis-ci.org/mrodalgaard/atom-expose)
 
 Quick tab overview of open files. Similar to Mac OSX Exposé / Mission Control, Firefox Tab Group, Safari and Chrome Tab Overview, etc.
 
