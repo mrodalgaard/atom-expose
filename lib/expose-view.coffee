@@ -77,7 +77,7 @@ class ExposeView extends View
       toPaneIndex = i if item is toItem
 
     fromPane.moveItemToPane(fromItem, toPane, toPaneIndex)
-    @update()
+    @update(true)
 
   didChangeVisible: (@visible) ->
     if visible
@@ -93,8 +93,8 @@ class ExposeView extends View
     colors = ['#3498db', '#e74c3c', '#2ecc71', '#9b59b6']
     colors[n % colors.length]
 
-  update: ->
-    return unless @visible
+  update: (force) ->
+    return unless @visible or force
     @tabList.empty()
     @tabs = []
 
