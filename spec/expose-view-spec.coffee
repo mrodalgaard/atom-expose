@@ -106,6 +106,27 @@ describe "ExposeView", ->
       exposeView.moveTab(9, 9)
       expect(exposeView.tabs[2].title).toEqual 'sample3.txt'
 
+  describe "exposeHide()", ->
+    [workspaceElement, activationPromise] = []
+
+    beforeEach ->
+      workspaceElement = atom.views.getView(atom.workspace)
+      activationPromise = atom.packages.activatePackage('expose')
+
+    it "closes expose panel", ->
+      atom.commands.dispatch workspaceElement, 'expose:toggle'
+
+      waitsForPromise ->
+        activationPromise
+
+      runs ->
+        exposeModule = atom.packages.loadedPackages['expose'].mainModule
+        expect(exposeModule.modalPanel.isVisible()).toBe true
+        exposeView.exposeHide()
+        expect(exposeModule.modalPanel.isVisible()).toBe false
+        exposeView.exposeHide()
+        expect(exposeModule.modalPanel.isVisible()).toBe false
+
   describe 'Stay updated on changes', ->
     beforeEach ->
       waitsForPromise ->

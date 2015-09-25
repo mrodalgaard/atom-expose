@@ -61,20 +61,3 @@ describe "Expose", ->
 
         atom.commands.dispatch workspaceElement, 'expose:toggle'
         expect(exposeElement.classList.toString()).not.toContain 'animate'
-
-  describe "util::exposeHide", ->
-    {exposeHide} = require '../lib/util'
-
-    it "closes expose panel", ->
-      atom.commands.dispatch workspaceElement, 'expose:toggle'
-
-      waitsForPromise ->
-        activationPromise
-
-      runs ->
-        exposeModule = atom.packages.loadedPackages['expose'].mainModule
-        expect(exposeModule.modalPanel.isVisible()).toBe true
-        exposeHide()
-        expect(exposeModule.modalPanel.isVisible()).toBe false
-        exposeHide()
-        expect(exposeModule.modalPanel.isVisible()).toBe false

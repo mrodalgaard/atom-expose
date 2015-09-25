@@ -1,8 +1,6 @@
 {View, $$} = require 'atom-space-pen-views'
 {CompositeDisposable} = require 'atom'
 
-{exposeHide} = require './util'
-
 module.exports =
 class ExposeView extends View
   title: 'newfile'

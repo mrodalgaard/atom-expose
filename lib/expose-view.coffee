@@ -3,7 +3,6 @@
 Sortable = require 'sortablejs'
 
 ExposeTabView = require './expose-tab-view'
-{exposeHide} = require './util'
 
 module.exports =
 class ExposeView extends View
@@ -35,16 +34,16 @@ class ExposeView extends View
       atom.commands.dispatch(atom.views.getView(atom.workspace), 'settings-view:view-installed-packages')
 
     # This event gets propagated from most element clicks on top
-    @on 'click', (event) ->
+    @on 'click', (event) =>
       event.stopPropagation()
-      exposeHide()
+      @exposeHide()
 
     @disposables.add atom.config.observe 'expose.useAnimations', (value) =>
       @element.classList.toggle('animate', value)
 
     @disposables.add atom.commands.add @element,
-      'core:confirm': -> exposeHide()
-      'core:cancel': -> exposeHide()
+      'core:confirm': => @exposeHide()
+      'core:cancel': => @exposeHide()
       'expose:activate-1': => @activateTab(1)
       'expose:activate-2': => @activateTab(2)
       'expose:activate-3': => @activateTab(3)
@@ -109,4 +108,8 @@ class ExposeView extends View
     n = 1 if n < 1
     n = @tabs.length if n > 9 or n > @tabs.length
     @tabs[n-1]?.activateTab()
-    exposeHide()
+    @exposeHide()
+
+  exposeHide: ->
+    for panel in atom.workspace.getModalPanels()
+      panel.hide() if panel.className is 'expose-panel'
