@@ -15,15 +15,10 @@ class ExposeView extends View
         @a class: 'icon-x close-icon'
       @div outlet: 'tabList', class: 'tab-list'
 
-  constructor: (serializedState) ->
-    super
-
   initialize: ->
     @disposables = new CompositeDisposable
     @handleEvents()
     @handleDrag()
-
-  serialize: ->
 
   destroy: ->
     @remove()

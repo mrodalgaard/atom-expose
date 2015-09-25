@@ -11,8 +11,8 @@ module.exports = Expose =
       type: 'boolean'
       default: true
 
-  activate: (state) ->
-    @exposeView = new ExposeView(state.exposeViewState)
+  activate: ->
+    @exposeView = new ExposeView
     @modalPanel = atom.workspace.addModalPanel(item: @exposeView, visible: false, className: 'expose-panel')
 
     @disposables = new CompositeDisposable
@@ -35,9 +35,6 @@ module.exports = Expose =
     @exposeView.destroy()
     @modalPanel.destroy()
     @disposables.dispose()
-
-  serialize: ->
-    exposeViewState: @exposeView.serialize()
 
   toggle: ->
     if @modalPanel.isVisible()

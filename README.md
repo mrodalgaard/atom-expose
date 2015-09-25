@@ -31,7 +31,6 @@ Toggle expose with <kbd>cmd-shift-e</kbd> on Mac OSX and <kbd>alt-shift-e</kbd> 
 - [x] Stay updated on workspace changes
 - [ ] Split overview into panes
 - [ ] Show all project files options
-- [ ] Serialize enabled
 
 > Contributions, bug reports and feature requests are very welcome.
 
