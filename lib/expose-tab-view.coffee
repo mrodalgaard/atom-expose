@@ -24,7 +24,7 @@ class ExposeView extends View
 
   populateTabBody: ->
     return if @drawImage()
-    return if @drawCanvas()
+    return if @drawMinimap()
     @drawFallback()
 
   drawFallback: ->
@@ -42,67 +42,24 @@ class ExposeView extends View
     @tabBody.html $$ ->
       @img src: filePath
 
-  drawCanvas: ->
+  drawMinimap: ->
     return unless @item.constructor.name is 'TextEditor'
+    return unless atom.packages.loadedPackages.minimap
 
-    return unless minimapCanvas = @getMinimapCanvas()
-
-    # Draw sync link if canvas is empty
-    if minimapCanvas.toDataURL() is document.createElement('canvas').toDataURL()
-      @tabBody.html $$ ->
-        @a class: 'icon-sync'
-    else
-      canvas = document.createElement 'canvas'
-      canvas.getContext('2d').drawImage(minimapCanvas, 0, 0)
-      @tabBody.html canvas
-
-  getMinimapCanvas: ->
-    loadedPackages = atom.packages.loadedPackages
-    return unless loadedPackages.minimap
-
-    # HACK: Steal canvas from minimap
-    # Fails if item does not have minimap object
-    try
-      minimapModule = loadedPackages['minimap'].mainModule
-      minimap = minimapModule.minimapForEditor(@item)
-      minimapView = atom.views.getView(minimap)
-      minimapView.querySelectorAll('atom-text-editor-minimap /deep/ canvas')[0]
-    catch error
-
-  # XXX: Experiment with drawing DOM objects into canvas and scale
-  # to not depend on minimap and be able to draw every type of view
-  # Mozilla: https://goo.gl/0QPvF7
-  # rasterizeHTML: https://goo.gl/HIKjyN
-  drawCanvasExperiment: ->
-    canvas = document.createElement 'canvas'
-    ctx = canvas.getContext '2d'
-
-    element = atom.views.getView(@item)
-    htmlString = element.querySelectorAll('atom-text-editor /deep/ .editor--private')[0].innerHTML
-
-    data =  """
-            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
-              <foreignObject width="100%" height="100%">
-                <div xmlns="http://www.w3.org/1999/xhtml" style="font-size:40px">
-                  #{htmlString}
-                </div>
-              </foreignObject>
-            </svg>
-            """
-
-    DOMURL = window.URL || window.webkitURL || window
-
-    img = new Image
-    svg = new Blob([data], {type: 'image/svg+xml;charset=utf-8'})
-    url = DOMURL.createObjectURL(svg)
-
-    img.onload = ->
-      console.log 'SVG image loaded'
-      ctx.drawImage(img, 0, 0)
-      DOMURL.revokeObjectURL(url)
-
-    img.src = url
-    @tabBody.html canvas
+    atom.packages.serviceHub.consume 'minimap', '1.0.0', (minimapAPI) =>
+      if minimapAPI.standAloneMinimapForEditor?
+        minimap = minimapAPI.standAloneMinimapForEditor(@item)
+        minimapElement = atom.views.getView(minimap)
+        minimapElement.style.cssText = '''
+          width: 134px;
+          height: 90px;
+          right: initial;
+          transform: translate3d(32px, 22px, 0px) scale3d(1.5, 1.5, 1)
+        '''
+        @tabBody.html minimapElement
+      else
+        @tabBody.html $$ ->
+          @a class: 'icon-sync'
 
   activateTab: (event) ->
     pane = atom.workspace.paneForItem(@item)

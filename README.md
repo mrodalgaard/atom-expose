@@ -32,7 +32,6 @@ Toggle expose with <kbd>cmd-shift-e</kbd> on Mac OSX and <kbd>alt-shift-e</kbd> 
 - [ ] Stay updated on workspace changes
 - [ ] Show all project files options
 - [ ] Serialize enabled
-- [ ] Remove dependency on minimap for previews
 
 > Contributions, bug reports and feature requests are very welcome.
 

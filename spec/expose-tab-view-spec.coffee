@@ -49,7 +49,7 @@ describe "ExposeTabView", ->
       runs ->
         atom.commands.dispatch workspaceElement, 'settings-view:open'
         waitsFor ->
-          atom.workspace.getActivePaneItem()?
+          atom.workspace.getActivePaneItem()
         runs ->
           item = atom.workspace.getActivePaneItem()
           exposeTabView = new ExposeTabView(item)
@@ -95,9 +95,12 @@ describe "ExposeTabView", ->
         item = atom.workspace.getActivePaneItem()
         exposeTabView = new ExposeTabView(item)
 
-        expect(exposeTabView.item).toBeDefined()
-        expect(exposeTabView.title).toBe 'sample1.txt'
-        expect(exposeTabView.tabBody.find('canvas')).toHaveLength 1
+        waitsFor ->
+          exposeTabView.tabBody.html()
+        runs ->
+          expect(exposeTabView.item).toBeDefined()
+          expect(exposeTabView.title).toBe 'sample1.txt'
+          expect(exposeTabView.tabBody.find('atom-text-editor-minimap')).toHaveLength 1
 
   describe "closeTab()", ->
     it "destroys selected tab item", ->
