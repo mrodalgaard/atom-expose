@@ -43,5 +43,4 @@ module.exports = Expose =
     if @modalPanel.isVisible()
       @modalPanel.hide()
     else
-      @exposeView.update()
       @modalPanel.show()

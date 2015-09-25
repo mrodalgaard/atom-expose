@@ -55,6 +55,9 @@ class ExposeView extends View
       'expose:activate-8': => @activateTab(8)
       'expose:activate-9': => @activateTab(9)
 
+    @disposables.add atom.workspace.onDidAddPaneItem => @update()
+    @disposables.add atom.workspace.onDidDestroyPaneItem => @update()
+
   handleDrag: ->
     Sortable.create(
       @tabList.context
@@ -76,8 +79,12 @@ class ExposeView extends View
     fromPane.moveItemToPane(fromItem, toPane, toPaneIndex)
     @update()
 
-  didChangeVisible: (visible) ->
-    if visible then @focus() else atom.workspace.getActivePane().activate()
+  didChangeVisible: (@visible) ->
+    if visible
+      @update()
+      @focus()
+    else
+      atom.workspace.getActivePane().activate()
 
     # Animation does not trigger when class is set immediately
     setTimeout (=> @element.classList.toggle('visible', visible)), 0
@@ -87,6 +94,7 @@ class ExposeView extends View
     colors[n % colors.length]
 
   update: ->
+    return unless @visible
     @tabList.empty()
     @tabs = []
 
