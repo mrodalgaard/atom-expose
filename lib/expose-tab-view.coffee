@@ -3,7 +3,7 @@
 
 module.exports =
 class ExposeView extends View
-  title: 'newfile'
+  title: 'untitled'
 
   @content: (title, color) ->
     @div click: 'activateTab', class: 'tab', =>
@@ -19,6 +19,15 @@ class ExposeView extends View
   initialize: ->
     @handleEvents()
     @populateTabBody()
+
+  handleEvents: ->
+    @on 'click', '.icon-sync', @refreshTab
+    atom.workspace.observeActivePaneItem @toggleActive
+
+  destroy: ->
+    @destroyed = true
+    @remove()
+    @disposables?.dispose()
 
   populateTabBody: ->
     return if @drawImage()
@@ -49,34 +58,34 @@ class ExposeView extends View
         minimap = minimapAPI.standAloneMinimapForEditor(@item)
         minimapElement = atom.views.getView(minimap)
         minimapElement.style.cssText = '''
-          width: 134px;
+          width: 130px;
           height: 90px;
           right: initial;
-          transform: translate3d(32px, 22px, 0px) scale3d(1.5, 1.5, 1)
+          transform: translate3d(40px, 22px, 0px) scale3d(1.5, 1.5, 1)
         '''
         @tabBody.html minimapElement
       else
         @tabBody.html $$ ->
           @a class: 'icon-sync'
 
-  activateTab: (event) ->
+  refreshTab: (event) =>
+    event.stopPropagation()
+    event.target.className += ' animate'
+    atom.workspace.paneForItem(@item).activateItem(@item)
+    setTimeout (=> @populateTabBody()), 1000
+
+  activateTab: ->
     pane = atom.workspace.paneForItem(@item)
     pane.activate()
     pane.activateItem(@item)
+
+  toggleActive: (item) =>
+    @toggleClass('active', item is @item)
+
+  isActiveTab: ->
+    atom.workspace.getActivePaneItem() is @item
 
   closeTab: (event) ->
     event?.stopPropagation()
     atom.workspace.paneForItem(@item).destroyItem(@item)
     @destroy()
-
-  handleEvents: ->
-    @on 'click', '.icon-sync', (event) =>
-      event.stopPropagation()
-      event.target.className += ' animate'
-      atom.workspace.paneForItem(@item).activateItem(@item)
-      setTimeout (=> @populateTabBody()), 1000
-
-  destroy: ->
-    @destroyed = true
-    @remove()
-    @disposables?.dispose()
