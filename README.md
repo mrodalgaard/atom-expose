@@ -2,7 +2,7 @@
 
 Quick tab overview of open files. Similar to Mac OSX Exposé / Mission Control, Firefox Tab Group, Safari and Chrome Tab Overview, etc.
 
-* The overview layout tries to simulate your current themes tab styling.
+* Shows active tab, panes and previews.
 * The text editor preview is taken from [Minimap](https://github.com/atom-minimap/minimap) if present, else a suitable file icon is used.
 * Shows file icons in tabs if the [file-icon package](https://github.com/DanBrooker/file-icons) is installed.
 
