@@ -1,4 +1,4 @@
-'.platform-darwin atom-workspace':
+'.platform-darwin atom-workspace atom-text-editor:not([mini]), .platform-darwin atom-workspace':
   'cmd-shift-e': 'expose:toggle'
 
 '.platform-win32 atom-workspace, .platform-linux atom-workspace':
