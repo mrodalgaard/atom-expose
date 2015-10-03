@@ -1,3 +1,10 @@
+## 0.7.0
+* Tab numbers
+* Navigate tabs using arrows
+* Stay updated on workspace changes
+* Use minimap standalone consumable
+* Travis CI
+
 ## 0.6.0
 * Change focus to item on click
 * Better extraction of tab icon
