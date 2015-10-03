@@ -26,7 +26,7 @@ class ExposeView extends View
 
   handleEvents: ->
     @exposeSettings.on 'click', ->
-      atom.commands.dispatch(atom.views.getView(atom.workspace), 'settings-view:view-installed-packages')
+      atom.workspace.open 'atom://config/packages/expose'
 
     # This event gets propagated from most element clicks on top
     @on 'click', (event) =>
