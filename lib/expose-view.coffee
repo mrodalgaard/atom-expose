@@ -39,6 +39,8 @@ class ExposeView extends View
     @disposables.add atom.commands.add @element,
       'core:confirm': => @exposeHide()
       'core:cancel': => @exposeHide()
+      'core:move-right': => @nextTab()
+      'core:move-left': => @nextTab(-1)
       'expose:activate-1': => @activateTab(1)
       'expose:activate-2': => @activateTab(2)
       'expose:activate-3': => @activateTab(3)
@@ -89,8 +91,7 @@ class ExposeView extends View
 
   update: (force) ->
     return unless @visible or force
-    @tabList.empty()
-    @tabs = []
+    @removeTabs()
 
     for pane, i in atom.workspace.getPanes()
       color = @getGroupColor(i)
@@ -99,11 +100,23 @@ class ExposeView extends View
         @tabs.push exposeTabView
         @tabList.append exposeTabView
 
+  removeTabs: ->
+    @tabList.empty()
+    for tab in @tabs
+      tab.destroy()
+    @tabs = []
+
   activateTab: (n = 1) ->
     n = 1 if n < 1
     n = @tabs.length if n > 9 or n > @tabs.length
     @tabs[n-1]?.activateTab()
     @exposeHide()
+
+  nextTab: (n = 1) ->
+    for tabView, i in @tabs
+      if tabView.isActiveTab()
+        nextTabView.activateTab() if nextTabView = @tabs[i+n]
+        return @focus()
 
   exposeHide: ->
     for panel in atom.workspace.getModalPanels()

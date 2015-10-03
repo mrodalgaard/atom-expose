@@ -36,7 +36,7 @@ atom-workspace-axis.expose-blur {
       width: 210px;
       margin: 10px 5px;
       -webkit-user-drag: element;
-      border: #333 dashed 1px;
+      border: #333 solid 1px;
       background: @base-background-color;
 
       .tab-header {
@@ -67,7 +67,7 @@ atom-workspace-axis.expose-blur {
 
       .tab-body {
         border-top-style: solid;
-        border-top-width: 1px;
+        border-width: 1px;
         height: 140px;
         padding: 5px;
         overflow: hidden;
@@ -99,7 +99,42 @@ atom-workspace-axis.expose-blur {
           transition-duration: .12s;
         }
       }
+
+      &.active .tab-body {
+        border-right-style: dashed;
+        border-bottom-style: dashed;
+        border-left-style: dashed;
+        padding-left: 4px;
+        padding-right: 4px;
+      }
     }
+  }
+
+/* Tabs numbers */
+
+  .tab-numbers-style(@content) {
+    .close-icon {
+      transform: none;
+
+      &::before {
+        font-family: Helvetica, Arial, sans-serif;
+        content: @content;
+        font-size: 12px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .tab:not(:hover):not(.hover) {
+    &:nth-of-type(1) { .tab-numbers-style("1"); }
+    &:nth-of-type(2) { .tab-numbers-style("2"); }
+    &:nth-of-type(3) { .tab-numbers-style("3"); }
+    &:nth-of-type(4) { .tab-numbers-style("4"); }
+    &:nth-of-type(5) { .tab-numbers-style("5"); }
+    &:nth-of-type(6) { .tab-numbers-style("6"); }
+    &:nth-of-type(7) { .tab-numbers-style("7"); }
+    &:nth-of-type(8) { .tab-numbers-style("8"); }
+    &:nth-of-type(9) { .tab-numbers-style("9"); }
   }
 
 /* Modal zoom animation */

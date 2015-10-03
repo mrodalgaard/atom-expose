@@ -13,7 +13,7 @@ describe "ExposeTabView", ->
     it "can populate empty item", ->
       exposeTabView = new ExposeTabView
       expect(Object.getOwnPropertyNames(exposeTabView.item)).toHaveLength 0
-      expect(exposeTabView.find('.title').text()).toBe 'newfile'
+      expect(exposeTabView.find('.title').text()).toBe 'untitled'
       expect(exposeTabView.tabBody.find('a')).toHaveLength 1
       expect(exposeTabView.tabBody.find('a').attr('class')).toContain 'text'
 

@@ -13,6 +13,7 @@ describe "ExposeView", ->
     beforeEach ->
       waitsForPromise ->
         atom.workspace.open 'sample1.txt'
+      waitsForPromise ->
         atom.workspace.open 'sample2.txt'
 
     it "populates list of open tabs", ->
@@ -38,7 +39,9 @@ describe "ExposeView", ->
     beforeEach ->
       waitsForPromise ->
         atom.workspace.open 'sample1.txt'
+      waitsForPromise ->
         atom.workspace.open 'sample2.txt'
+      waitsForPromise ->
         atom.workspace.open 'sample3.txt'
 
     it "activates given tab", ->
@@ -65,7 +68,9 @@ describe "ExposeView", ->
     beforeEach ->
       waitsForPromise ->
         atom.workspace.open 'sample1.txt'
+      waitsForPromise ->
         atom.workspace.open 'sample2.txt'
+      waitsForPromise ->
         atom.workspace.open 'sample3.txt'
 
     it "can move tabs", ->
@@ -106,7 +111,56 @@ describe "ExposeView", ->
       exposeView.moveTab(9, 9)
       expect(exposeView.tabs[2].title).toEqual 'sample3.txt'
 
-  describe "exposeHide()", ->
+  describe "Cycle around in tabs", ->
+    beforeEach ->
+      waitsForPromise ->
+        atom.workspace.open 'sample1.txt'
+      waitsForPromise ->
+        atom.workspace.open 'sample2.txt'
+      waitsForPromise ->
+        atom.workspace.open 'sample3.txt'
+
+    it "marks active tab", ->
+      exposeView.visible = true
+      exposeView.update()
+
+      expect(exposeView.tabs[2].isActiveTab()).toBeTruthy()
+      expect(exposeView.tabs[0].hasClass('active')).toBeFalsy()
+      expect(exposeView.tabs[1].hasClass('active')).toBeFalsy()
+      expect(exposeView.tabs[2].hasClass('active')).toBeTruthy()
+
+      item = atom.workspace.getPaneItems()[0]
+      atom.workspace.paneForItem(item).activateItem(item)
+
+      expect(exposeView.tabs[0].isActiveTab()).toBeTruthy()
+      expect(exposeView.tabs[2].hasClass('active')).toBeFalsy()
+      expect(exposeView.tabs[1].hasClass('active')).toBeFalsy()
+      expect(exposeView.tabs[0].hasClass('active')).toBeTruthy()
+
+    it "can go to next tab", ->
+      exposeView.update(true)
+      exposeView.activateTab(1)
+
+      expect(atom.workspace.getActivePaneItem().getTitle()).toEqual 'sample1.txt'
+      exposeView.nextTab()
+      expect(atom.workspace.getActivePaneItem().getTitle()).toEqual 'sample2.txt'
+      exposeView.nextTab()
+      expect(atom.workspace.getActivePaneItem().getTitle()).toEqual 'sample3.txt'
+      exposeView.nextTab()
+      expect(atom.workspace.getActivePaneItem().getTitle()).toEqual 'sample3.txt'
+
+    it "can go to previous tab", ->
+      exposeView.update(true)
+
+      expect(atom.workspace.getActivePaneItem().getTitle()).toEqual 'sample3.txt'
+      exposeView.nextTab(-1)
+      expect(atom.workspace.getActivePaneItem().getTitle()).toEqual 'sample2.txt'
+      exposeView.nextTab(-1)
+      expect(atom.workspace.getActivePaneItem().getTitle()).toEqual 'sample1.txt'
+      exposeView.nextTab(-1)
+      expect(atom.workspace.getActivePaneItem().getTitle()).toEqual 'sample1.txt'
+
+  describe "Hide expose view", ->
     [workspaceElement, activationPromise] = []
 
     beforeEach ->
@@ -127,12 +181,12 @@ describe "ExposeView", ->
         exposeView.exposeHide()
         expect(exposeModule.modalPanel.isVisible()).toBe false
 
-  describe 'Stay updated on changes', ->
+  describe "Stay updated on changes", ->
     beforeEach ->
       waitsForPromise ->
         atom.workspace.open 'sample1.txt'
 
-    it 'updates on add/destroy items', ->
+    it "updates on add/destroy items", ->
       exposeView.visible = true
       exposeView.update()
       expect(exposeView.tabs).toHaveLength 1
@@ -144,7 +198,7 @@ describe "ExposeView", ->
         atom.workspace.getActivePaneItem().destroy()
         expect(exposeView.tabs).toHaveLength 1
 
-    it 'does not update when not visible', ->
+    it "does not update when not visible", ->
       exposeView.update(true)
       expect(exposeView.tabs).toHaveLength 1
       waitsForPromise ->

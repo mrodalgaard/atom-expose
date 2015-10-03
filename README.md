@@ -16,6 +16,8 @@ Toggle expose with <kbd>cmd-shift-e</kbd> on Mac OSX and <kbd>alt-shift-e</kbd> 
 
 <kbd>1</kbd> - <kbd>9</kbd> jumps to tabs.
 
+<kbd>←</kbd> and <kbd>→</kbd> select tabs.
+
 ## Tasks
 
 - [x] Basic exposé functionality
@@ -29,6 +31,7 @@ Toggle expose with <kbd>cmd-shift-e</kbd> on Mac OSX and <kbd>alt-shift-e</kbd> 
 - [x] Keyboard shortcuts (e.g. numbers)
 - [x] Move / sortable tabs
 - [x] Stay updated on workspace changes
+- [x] Show active tab and navigate with arrows
 - [ ] Split overview into panes
 - [ ] Show all project files options
 
