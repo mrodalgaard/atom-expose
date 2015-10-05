@@ -3,8 +3,6 @@
 
 module.exports =
 class ExposeView extends View
-  title: 'untitled'
-
   @content: (title, color) ->
     @div click: 'activateTab', class: 'expose-tab', =>
       @div class: 'tab-header', =>
@@ -13,7 +11,7 @@ class ExposeView extends View
       @div outlet: 'tabBody', class: 'tab-body', style: "border-color: #{color}"
 
   constructor: (@item = {}, @color = '#000') ->
-    @title = item.getTitle?() if item?
+    @title = item?.getTitle() or 'untitled'
     super(@title, @color)
 
   initialize: ->
