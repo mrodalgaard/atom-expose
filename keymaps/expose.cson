@@ -14,3 +14,5 @@
   '7': 'expose:activate-7'
   '8': 'expose:activate-8'
   '9': 'expose:activate-9'
+  'tab': 'core:move-right'
+  'shift-tab': 'core:move-left'
