@@ -147,7 +147,7 @@ describe "ExposeView", ->
       exposeView.nextTab()
       expect(atom.workspace.getActivePaneItem().getTitle()).toEqual 'sample3.txt'
       exposeView.nextTab()
-      expect(atom.workspace.getActivePaneItem().getTitle()).toEqual 'sample3.txt'
+      expect(atom.workspace.getActivePaneItem().getTitle()).toEqual 'sample1.txt'
 
     it "can go to previous tab", ->
       exposeView.update(true)
@@ -158,7 +158,7 @@ describe "ExposeView", ->
       exposeView.nextTab(-1)
       expect(atom.workspace.getActivePaneItem().getTitle()).toEqual 'sample1.txt'
       exposeView.nextTab(-1)
-      expect(atom.workspace.getActivePaneItem().getTitle()).toEqual 'sample1.txt'
+      expect(atom.workspace.getActivePaneItem().getTitle()).toEqual 'sample3.txt'
 
   describe "Hide expose view", ->
     [workspaceElement, activationPromise] = []

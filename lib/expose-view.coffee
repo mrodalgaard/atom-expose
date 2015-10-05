@@ -116,7 +116,8 @@ class ExposeView extends View
   nextTab: (n = 1) ->
     for tabView, i in @tabs
       if tabView.isActiveTab()
-        nextTabView.activateTab() if nextTabView = @tabs[i+n]
+        n = @tabs.length - 1 if i+n < 0
+        nextTabView.activateTab() if nextTabView = @tabs[(i+n)%@tabs.length]
         return @focus()
 
   exposeHide: ->
