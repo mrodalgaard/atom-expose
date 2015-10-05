@@ -1,3 +1,7 @@
+## 0.8.0
+* Tab context menu
+* Improved minimap
+
 ## 0.7.0
 * Tab numbers
 * Navigate tabs using arrows
