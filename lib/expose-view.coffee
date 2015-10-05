@@ -41,6 +41,7 @@ class ExposeView extends View
       'core:cancel': => @exposeHide()
       'core:move-right': => @nextTab()
       'core:move-left': => @nextTab(-1)
+      'expose:close': => @exposeHide()
       'expose:activate-1': => @activateTab(1)
       'expose:activate-2': => @activateTab(2)
       'expose:activate-3': => @activateTab(3)

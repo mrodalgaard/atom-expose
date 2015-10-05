@@ -6,7 +6,7 @@ class ExposeView extends View
   title: 'untitled'
 
   @content: (title, color) ->
-    @div click: 'activateTab', class: 'tab', =>
+    @div click: 'activateTab', class: 'expose-tab', =>
       @div class: 'tab-header', =>
         @div class: 'title icon-file-text', 'data-name': title, title
         @div click: 'closeTab', class: 'close-icon icon-x'
@@ -17,11 +17,16 @@ class ExposeView extends View
     super(@title, @color)
 
   initialize: ->
+    @disposables = new CompositeDisposable
     @handleEvents()
     @populateTabBody()
 
   handleEvents: ->
     @on 'click', '.icon-sync', @refreshTab
+
+    @disposables.add atom.commands.add @element,
+      'expose:close-tab': (e) => @closeTab(e)
+
     atom.workspace.observeActivePaneItem @toggleActive
 
   destroy: ->
@@ -57,11 +62,15 @@ class ExposeView extends View
       if minimapAPI.standAloneMinimapForEditor?
         minimap = minimapAPI.standAloneMinimapForEditor(@item)
         minimapElement = atom.views.getView(minimap)
+
+        # Override minimap scroll relay
+        minimapElement.relayMousewheelEvent = ->
+
         minimapElement.style.cssText = '''
           width: 130px;
           height: 90px;
-          right: initial;
-          transform: translate3d(40px, 22px, 0px) scale3d(1.5, 1.5, 1)
+          position: relative;
+          transform: scale3d(1.5, 1.5, 1)
         '''
         @tabBody.html minimapElement
       else
