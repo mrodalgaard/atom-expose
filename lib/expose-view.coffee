@@ -100,6 +100,7 @@ class ExposeView extends View
         exposeTabView = new ExposeTabView(item, color)
         @tabs.push exposeTabView
         @tabList.append exposeTabView
+    @focus()
 
   removeTabs: ->
     @tabList.empty()
