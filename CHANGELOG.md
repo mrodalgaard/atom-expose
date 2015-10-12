@@ -1,3 +1,8 @@
+## 0.9.0
+* Solid tab background in Material UI
+* Trim minimap elements
+* Use Tab button to cycle tabs
+
 ## 0.8.0
 * Tab context menu
 * Improved minimap
