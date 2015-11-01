@@ -1,3 +1,6 @@
+## 0.10.0
+* Minimap position fix
+
 ## 0.9.0
 * Solid tab background in Material UI
 * Trim minimap elements
