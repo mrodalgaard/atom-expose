@@ -66,6 +66,7 @@ atom-workspace-axis.expose-blur {
       }
 
       .tab-body {
+        position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -103,6 +104,10 @@ atom-workspace-axis.expose-blur {
       &.active .tab-body {
         border-style: solid dashed dashed;
         padding-bottom: 4px;
+        // Do not jump when adding a border
+        atom-text-editor-minimap {
+          right: -1px;
+        }
       }
     }
   }

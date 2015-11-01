@@ -61,14 +61,14 @@ class ExposeView extends View
         minimap = minimapAPI.standAloneMinimapForEditor(@item)
         minimapElement = atom.views.getView(minimap)
 
-        # Override minimap scroll, remove controls and set custom styling
-        minimapElement.relayMousewheelEvent = ->
+        # Override minimap scroll, remove controls and set custom
+        # styling, scaling and position.
         minimapElement.controls?.remove()
         minimapElement.style.cssText = '''
           width: 130px;
           height: 90px;
-          position: relative;
-          transform: scale3d(1.5, 1.5, 1)
+          pointer-events: none;
+          transform: scale3d(1.5, 1.5, 1) translate(-20px, 15px);
         '''
 
         @tabBody.html minimapElement
