@@ -83,26 +83,39 @@ describe "ExposeView", ->
       expect(exposeView.tabs[2].title).toEqual 'sample2.txt'
 
     it "can move tabs between panes", ->
+      item = atom.workspace.getActivePaneItem()
       atom.workspace.getActivePane().splitRight(copyActiveItem: true)
+      item.destroy()
       exposeView.update(true)
 
       color1 = exposeView.getGroupColor(0)
       color2 = exposeView.getGroupColor(1)
       expect(color1).not.toEqual color2
-      expect(exposeView.tabs).toHaveLength 4
+      expect(exposeView.tabs).toHaveLength 3
+      expect(exposeView.tabs[0].color).toEqual color1
+      expect(exposeView.tabs[0].title).toEqual 'sample1.txt'
+      expect(exposeView.tabs[1].title).toEqual 'sample2.txt'
       expect(exposeView.tabs[2].title).toEqual 'sample3.txt'
-      expect(exposeView.tabs[3].title).toEqual 'sample3.txt'
-      expect(exposeView.tabs[3].color).toEqual color2
-
-      exposeView.moveTab(0, 3)
-      expect(exposeView.tabs[2].title).toEqual 'sample1.txt'
       expect(exposeView.tabs[2].color).toEqual color2
+
+      exposeView.moveTab(0, 2)
+      expect(exposeView.tabs[1].title).toEqual 'sample1.txt'
+      expect(exposeView.tabs[1].color).toEqual color2
       expect(exposeView.tabs[0].title).toEqual 'sample2.txt'
       expect(exposeView.tabs[0].color).toEqual color1
 
-      exposeView.moveTab(3, 0)
-      expect(exposeView.tabs[0].title).toEqual 'sample3.txt'
+      exposeView.moveTab(1, 0)
+      expect(exposeView.tabs[0].title).toEqual 'sample1.txt'
       expect(exposeView.tabs[0].color).toEqual color1
+
+    it "uses long title when there are multiple items with the same name", ->
+      atom.workspace.getActivePane().splitRight(copyActiveItem: true)
+      exposeView.update(true)
+
+      expect(exposeView.tabs).toHaveLength 4
+      expect(exposeView.tabs[0].title).toEqual 'sample1.txt'
+      expect(exposeView.tabs[2].title).toEqual 'sample3.txt - fixtures'
+      expect(exposeView.tabs[3].title).toEqual 'sample3.txt - fixtures'
 
     it "handles invalid input", ->
       exposeView.update(true)

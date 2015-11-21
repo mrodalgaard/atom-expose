@@ -11,8 +11,7 @@ class ExposeView extends View
       @div outlet: 'tabBody', class: 'tab-body', style: "border-color: #{color}"
 
   constructor: (@item = {}, @color = '#000') ->
-    @title = item?.getTitle() or 'untitled'
-    super(@title, @color)
+    super(@title = @getItemTitle(item), @color)
 
   initialize: ->
     @disposables = new CompositeDisposable
@@ -101,3 +100,10 @@ class ExposeView extends View
     event?.stopPropagation()
     atom.workspace.paneForItem(@item).destroyItem(@item)
     @destroy()
+
+  getItemTitle: (item) ->
+    return 'untitled' unless title = item?.getTitle()
+
+    for paneItem in atom.workspace.getPaneItems() when paneItem isnt item
+      title = item.getLongTitle() if paneItem.getTitle() is title
+    title
