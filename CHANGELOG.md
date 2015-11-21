@@ -1,3 +1,8 @@
+## 0.11.0
+* Enable long tab titles
+* Sharper minimap canvas
+* Work with native-ui theme
+
 ## 0.10.0
 * Minimap position fix
 
