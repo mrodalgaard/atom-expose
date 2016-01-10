@@ -1,7 +1,7 @@
 {
   "name": "expose",
   "main": "./lib/expose",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "description": "Quick tab overview of open files",
   "keywords": [
     "tab",
