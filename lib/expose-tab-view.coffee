@@ -105,5 +105,6 @@ class ExposeView extends View
     return 'untitled' unless title = item?.getTitle()
 
     for paneItem in atom.workspace.getPaneItems() when paneItem isnt item
-      title = item.getLongTitle() if paneItem.getTitle() is title
+      if paneItem.getTitle() is title and item.getLongTitle?
+        title = item.getLongTitle()
     title

@@ -114,8 +114,17 @@ describe "ExposeView", ->
 
       expect(exposeView.tabs).toHaveLength 4
       expect(exposeView.tabs[0].title).toEqual 'sample1.txt'
-      expect(exposeView.tabs[2].title).toEqual 'sample3.txt - fixtures'
-      expect(exposeView.tabs[3].title).toEqual 'sample3.txt - fixtures'
+      expect(exposeView.tabs[2].title).toEqual 'sample3.txt — fixtures'
+      expect(exposeView.tabs[3].title).toEqual 'sample3.txt — fixtures'
+
+    it "handles missing long title", ->
+      atom.workspace.getActivePane().splitRight(copyActiveItem: true)
+      item = atom.workspace.getActivePaneItem()
+      item.getLongTitle = undefined
+      exposeView.update(true)
+
+      expect(exposeView.tabs[2].title).toEqual 'sample3.txt — fixtures'
+      expect(exposeView.tabs[3].title).toEqual 'sample3.txt'
 
     it "handles invalid input", ->
       exposeView.update(true)
