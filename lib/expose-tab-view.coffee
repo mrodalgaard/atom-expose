@@ -64,20 +64,16 @@ class ExposeView extends View
       if minimapAPI.standAloneMinimapForEditor?
         minimap = minimapAPI.standAloneMinimapForEditor(@item)
         minimapElement = atom.views.getView(minimap)
-
-        # Override minimap scroll, remove controls and set custom style
-        minimapElement.controls?.remove()
         minimapElement.style.cssText = '''
           width: 190px;
           height: 130px;
           left: 10px;
           pointer-events: none;
-          // transform: scale3d(1.5, 1.5, 1) translate(-20px, 15px);
         '''
 
-        minimap.setCharWidth(2)
-        minimap.setCharHeight(4)
-        minimap.setInterline(2)
+        minimap.setCharWidth?(2)
+        minimap.setCharHeight?(4)
+        minimap.setInterline?(2)
 
         @tabBody.html minimapElement
       else
