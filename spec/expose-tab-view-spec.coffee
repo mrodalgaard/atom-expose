@@ -16,6 +16,7 @@ describe "ExposeTabView", ->
       expect(exposeTabView.find('.title').text()).toBe 'untitled'
       expect(exposeTabView.tabBody.find('a')).toHaveLength 1
       expect(exposeTabView.tabBody.find('a').attr('class')).toContain 'text'
+      expect(exposeTabView.pending).toBe false
 
     it "populates normal text editor", ->
       waitsForPromise ->
@@ -101,6 +102,16 @@ describe "ExposeTabView", ->
           expect(exposeTabView.item).toBeDefined()
           expect(exposeTabView.title).toBe 'sample1.txt'
           expect(exposeTabView.tabBody.find('atom-text-editor-minimap')).toHaveLength 1
+
+    it "marks pending tabs", ->
+      waitsForPromise ->
+        atom.workspace.open('sample1.txt', pending: true)
+      runs ->
+        item = atom.workspace.getActivePaneItem()
+        exposeTabView = new ExposeTabView(item)
+
+        expect(exposeTabView.title).toBe 'sample1.txt'
+        expect(exposeTabView.pending).toBe true
 
   describe "closeTab()", ->
     it "destroys selected tab item", ->
