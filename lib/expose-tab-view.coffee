@@ -69,6 +69,7 @@ class ExposeView extends View
           height: 130px;
           left: 10px;
           pointer-events: none;
+          position: absolute;
         '''
 
         minimap.setCharWidth?(2)

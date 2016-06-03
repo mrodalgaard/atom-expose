@@ -116,6 +116,11 @@ atom-workspace-axis.expose-blur {
     }
   }
 
+  // Fix stand alone minimap in relative mode (issue #23)
+  atom-text-editor-minimap[stand-alone=true] {
+    width: 190px;
+  }
+
 /* Tabs numbers */
 
   .tab-numbers-style(@content) {
