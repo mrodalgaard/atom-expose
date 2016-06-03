@@ -1,3 +1,7 @@
+## 0.12.0
+* Bug fixes
+* Mark pending tabs
+
 ## 0.11.0
 * Enable long tab titles
 * Sharper minimap canvas
