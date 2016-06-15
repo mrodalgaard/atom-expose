@@ -1,3 +1,6 @@
+## 0.12.2
+* Fix issue with long filenames
+
 ## 0.12.0
 * Bug fixes
 * Mark pending tabs
