@@ -77,7 +77,7 @@ class ExposeView extends View
     @update(true)
 
   didChangeVisible: (@visible) ->
-    if visible
+    if @visible
       @update()
       @focus()
     else
