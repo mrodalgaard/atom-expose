@@ -77,14 +77,14 @@ class ExposeView extends View
     @update(true)
 
   didChangeVisible: (@visible) ->
-    if visible
+    if @visible
       @update()
       @focus()
     else
       atom.workspace.getActivePane().activate()
 
     # Animation does not trigger when class is set immediately
-    setTimeout (=> @element.classList.toggle('visible', visible)), 0
+    setTimeout (=> @element.classList.toggle('visible', @visible)), 0
 
   getGroupColor: (n) ->
     colors = ['#3498db', '#e74c3c', '#2ecc71', '#9b59b6']
