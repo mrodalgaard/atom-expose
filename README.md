@@ -18,6 +18,8 @@ Toggle expose with <kbd>cmd-shift-e</kbd> on Mac OSX and <kbd>alt-shift-e</kbd> 
 
 <kbd>←</kbd> and <kbd>→</kbd> select tabs.
 
+Just start typing to search among the shown tabs.
+
 ## Tasks
 
 - [x] Basic exposé functionality
@@ -32,7 +34,6 @@ Toggle expose with <kbd>cmd-shift-e</kbd> on Mac OSX and <kbd>alt-shift-e</kbd> 
 - [x] Move / sortable tabs
 - [x] Stay updated on workspace changes
 - [x] Show active tab and navigate with arrows
-- [ ] Split overview into panes
 - [ ] Show all project files options
 
 > Contributions, bug reports and feature requests are very welcome.
