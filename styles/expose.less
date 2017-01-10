@@ -6,6 +6,7 @@ atom-panel.modal.expose-panel {
   position: fixed;
   left: 0;
   margin: auto;
+  padding-top: 0;
   width: 100%;
   max-width: 100%;
   height: 100%;
@@ -17,15 +18,39 @@ atom-workspace-axis.expose-blur {
   -webkit-filter: blur(5px)
 }
 
-.expose-view {
+atom-panel.modal .expose-view {
   @shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.5);
   height: 100%;
 
   .expose-top {
-    text-align: right;
+    background-color: @base-background-color;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 600px;
+    margin: 0 auto @component-padding auto;
+    padding: @component-padding / 2 0;
 
-    a::before {
-      .icon-resize(32px);
+    .input-block-item {
+      display: flex;
+      padding: @component-padding / 2 @component-padding;
+
+      .btn-group {
+        display: flex;
+        flex: 1 1 220px;
+      }
+
+      // Fix for invalid spacing in modal mini text editor
+      atom-text-editor[mini] {
+        margin-bottom: 0;
+      }
+    }
+
+    .input-block-item--flex {
+      flex: 100;
+      position: relative;
+      atom-text-editor {
+        width: 100%;
+      }
     }
   }
 
@@ -36,7 +61,7 @@ atom-workspace-axis.expose-blur {
 
     .expose-tab {
       width: 210px;
-      margin: 10px 5px;
+      margin: @component-padding;
       -webkit-user-drag: element;
       border: #333 solid 1px;
       background: @base-background-color;

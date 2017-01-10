@@ -1,5 +1,5 @@
-{View} = require 'atom-space-pen-views'
-{CompositeDisposable} = require 'atom'
+{CompositeDisposable, TextBuffer} = require 'atom'
+{View, TextEditorView} = require 'atom-space-pen-views'
 Sortable = require 'sortablejs'
 
 ExposeTabView = require './expose-tab-view'
@@ -8,12 +8,29 @@ module.exports =
 class ExposeView extends View
   tabs: []
 
-  @content: ->
+  @content: (searchBuffer) ->
+    searchTextEditor = atom.workspace.buildTextEditor(
+      mini: true
+      tabLength: 2
+      softTabs: true
+      softWrapped: false
+      buffer: searchBuffer
+      placeholderText: 'Search tabs'
+    )
+
     @div class: 'expose-view', tabindex: -1, =>
-      @div class: 'expose-top', =>
-        @a outlet: 'exposeSettings', class: 'icon-gear'
-        @a class: 'icon-x close-icon'
+      @div class: 'expose-top input-block', =>
+        @div class: 'input-block-item input-block-item--flex', =>
+          @subview 'searchView', new TextEditorView(editor: searchTextEditor)
+        @div class: 'input-block-item', =>
+          @div class: 'btn-group', =>
+            @button outlet: 'exposeSettings', class: 'btn icon-gear'
+            @button class: 'btn icon-x'
+
       @div outlet: 'tabList', class: 'tab-list'
+
+  constructor: () ->
+    super @searchBuffer = new TextBuffer
 
   initialize: ->
     @disposables = new CompositeDisposable
@@ -28,6 +45,12 @@ class ExposeView extends View
     @exposeSettings.on 'click', ->
       atom.workspace.open 'atom://config/packages/expose'
 
+    @searchView.on 'click', (event) ->
+      event.stopPropagation()
+
+    @searchView.getModel().onDidStopChanging =>
+      @update()
+
     # This event gets propagated from most element clicks on top
     @on 'click', (event) =>
       event.stopPropagation()
@@ -37,20 +60,22 @@ class ExposeView extends View
       @element.classList.toggle('animate', value)
 
     @disposables.add atom.commands.add @element,
-      'core:confirm': => @exposeHide()
+      'core:confirm': => @handleConfirm()
       'core:cancel': => @exposeHide()
       'core:move-right': => @nextTab()
       'core:move-left': => @nextTab(-1)
       'expose:close': => @exposeHide()
-      'expose:activate-1': => @activateTab(1)
-      'expose:activate-2': => @activateTab(2)
-      'expose:activate-3': => @activateTab(3)
-      'expose:activate-4': => @activateTab(4)
-      'expose:activate-5': => @activateTab(5)
-      'expose:activate-6': => @activateTab(6)
-      'expose:activate-7': => @activateTab(7)
-      'expose:activate-8': => @activateTab(8)
-      'expose:activate-9': => @activateTab(9)
+      'expose:activate-1': => @handleNumberKey(1)
+      'expose:activate-2': => @handleNumberKey(2)
+      'expose:activate-3': => @handleNumberKey(3)
+      'expose:activate-4': => @handleNumberKey(4)
+      'expose:activate-5': => @handleNumberKey(5)
+      'expose:activate-6': => @handleNumberKey(6)
+      'expose:activate-7': => @handleNumberKey(7)
+      'expose:activate-8': => @handleNumberKey(8)
+      'expose:activate-9': => @handleNumberKey(9)
+
+    @on 'keydown', (event) => @handleKeyEvent(event)
 
     @disposables.add atom.workspace.onDidAddPaneItem => @update()
     @disposables.add atom.workspace.onDidDestroyPaneItem => @update()
@@ -78,6 +103,7 @@ class ExposeView extends View
 
   didChangeVisible: (@visible) ->
     if @visible
+      @searchBuffer.setText('')
       @update()
       @focus()
     else
@@ -94,13 +120,17 @@ class ExposeView extends View
     return unless @visible or force
     @removeTabs()
 
+    searchText = @searchBuffer.getText()
+
     for pane, i in atom.workspace.getPanes()
       color = @getGroupColor(i)
       for item in pane.getItems()
         exposeTabView = new ExposeTabView(item, color)
+
+        continue if exposeTabView.title.indexOf(searchText) is -1
+
         @tabs.push exposeTabView
         @tabList.append exposeTabView
-    @focus()
 
   removeTabs: ->
     @tabList.empty()
@@ -114,6 +144,19 @@ class ExposeView extends View
     @tabs[n-1]?.activateTab()
     @exposeHide()
 
+  handleConfirm: ->
+    if @isSearching() then @activateTab() else @exposeHide()
+
+  handleNumberKey: (number) ->
+    if @isSearching()
+      @searchView.getModel().insertText(number.toString())
+    else
+      @activateTab(number)
+
+  handleKeyEvent: (event) ->
+    ignoredKeys = ['shift', 'control', 'alt', 'meta']
+    @searchView.focus() if ignoredKeys.indexOf(event.key.toLowerCase()) is -1
+
   nextTab: (n = 1) ->
     for tabView, i in @tabs
       if tabView.isActiveTab()
@@ -124,3 +167,5 @@ class ExposeView extends View
   exposeHide: ->
     for panel in atom.workspace.getModalPanels()
       panel.hide() if panel.className is 'expose-panel'
+
+  isSearching: -> @searchView.hasClass('is-focused')
