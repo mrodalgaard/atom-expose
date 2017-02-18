@@ -84,8 +84,8 @@ describe "ExposeTabView", ->
         runs ->
           exposeTabView = new ExposeTabView(item)
           expect(exposeTabView.title).toBe 'Markdown Preview'
-          expect(exposeTabView.tabBody.find('a')).toHaveLength 1
-          expect(exposeTabView.tabBody.find('a').attr('class')).toContain 'markdown'
+          expect(exposeTabView.tabBody.find('ar')).toHaveLength 1
+          expect(exposeTabView.tabBody.find('ar').attr('class')).toContain 'markdown'
 
     it "populates text editor with minimap activated", ->
       waitsForPromise ->

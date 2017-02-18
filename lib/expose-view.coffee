@@ -127,7 +127,7 @@ class ExposeView extends View
       for item in pane.getItems()
         exposeTabView = new ExposeTabView(item, color)
 
-        continue if exposeTabView.title.indexOf(searchText) is -1
+        continue if exposeTabView.title.toLowerCase().indexOf(searchText.toLowerCase()) is -1
 
         @tabs.push exposeTabView
         @tabList.append exposeTabView
