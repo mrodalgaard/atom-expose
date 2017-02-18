@@ -83,7 +83,7 @@ describe "ExposeTabView", ->
           item = atom.workspace.getPaneItems()[1]
         runs ->
           exposeTabView = new ExposeTabView(item)
-          expect(exposeTabView.title).toBe 'Markdown Preview'
+          expect(exposeTabView.title).toBe 'README.md Preview'
           expect(exposeTabView.tabBody.find('a')).toHaveLength 1
           expect(exposeTabView.tabBody.find('a').attr('class')).toContain 'markdown'
 

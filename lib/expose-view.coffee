@@ -1,5 +1,6 @@
 {CompositeDisposable, TextBuffer} = require 'atom'
 {View, TextEditorView} = require 'atom-space-pen-views'
+{filter} = require 'fuzzaldrin'
 Sortable = require 'sortablejs'
 
 ExposeTabView = require './expose-tab-view'
@@ -120,17 +121,22 @@ class ExposeView extends View
     return unless @visible or force
     @removeTabs()
 
-    searchText = @searchBuffer.getText()
-
+    @tabs = []
     for pane, i in atom.workspace.getPanes()
       color = @getGroupColor(i)
       for item in pane.getItems()
-        exposeTabView = new ExposeTabView(item, color)
+        @tabs.push new ExposeTabView(item, color)
 
-        continue if exposeTabView.title.indexOf(searchText) is -1
+    @renderTabs(@tabs = @filterTabs(@tabs))
 
-        @tabs.push exposeTabView
-        @tabList.append exposeTabView
+  filterTabs: (tabs) ->
+    text = @searchBuffer.getText()
+    return tabs if text is ''
+    filter(tabs, text, key: 'title')
+
+  renderTabs: (tabs) ->
+    for tab in tabs
+      @tabList.append tab
 
   removeTabs: ->
     @tabList.empty()

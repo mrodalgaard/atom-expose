@@ -227,3 +227,21 @@ describe "ExposeView", ->
         atom.workspace.open 'sample2.txt'
       runs ->
         expect(exposeView.tabs).toHaveLength 1
+
+  describe "Filter tabs", ->
+    beforeEach ->
+      waitsForPromise ->
+        atom.workspace.open 'sample1.txt'
+        atom.workspace.open 'sample2.txt'
+        atom.workspace.open 'sample3.txt'
+
+    it "filters open tabs", ->
+      exposeView.didChangeVisible(true)
+      expect(exposeView.tabs).toHaveLength 3
+      exposeView.searchView.setText '2.txt'
+      exposeView.update(true)
+      expect(exposeView.tabs).toHaveLength 1
+      expect(exposeView.tabs[0].title).toBe 'sample2.txt'
+      exposeView.searchBuffer.setText ''
+      exposeView.update(true)
+      expect(exposeView.tabs).toHaveLength 3
