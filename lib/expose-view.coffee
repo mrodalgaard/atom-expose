@@ -50,7 +50,8 @@ class ExposeView extends View
       event.stopPropagation()
 
     @searchView.getModel().onDidStopChanging =>
-      @update()
+      @update() if @didIgnoreFirstChange
+      @didIgnoreFirstChange = true
 
     # This event gets propagated from most element clicks on top
     @on 'click', (event) =>
@@ -171,6 +172,9 @@ class ExposeView extends View
         return @focus()
 
   exposeHide: ->
+    @didIgnoreFirstChange = false
+    for tab in @tabs
+      tab.destroy()
     for panel in atom.workspace.getModalPanels()
       panel.hide() if panel.className is 'expose-panel'
 

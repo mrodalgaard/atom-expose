@@ -29,10 +29,9 @@ class ExposeView extends View
     @disposables.add atom.commands.add @element,
       'expose:close-tab': (e) => @closeTab(e)
 
-    atom.workspace.observeActivePaneItem @toggleActive
+    @disposables.add atom.workspace.observeActivePaneItem @toggleActive
 
   destroy: ->
-    @destroyed = true
     @remove()
     @disposables?.dispose()
 

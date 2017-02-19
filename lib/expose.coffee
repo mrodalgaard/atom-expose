@@ -38,6 +38,6 @@ module.exports = Expose =
 
   toggle: ->
     if @modalPanel.isVisible()
-      @modalPanel.hide()
+      @exposeView.exposeHide()
     else
       @modalPanel.show()

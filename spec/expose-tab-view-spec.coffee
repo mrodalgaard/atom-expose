@@ -123,12 +123,12 @@ describe "ExposeTabView", ->
 
         expect(atom.workspace.getTextEditors()).toHaveLength 1
         expect(exposeTabView.title).toBe 'sample1.txt'
-        expect(exposeTabView.destroyed).toBeFalsy()
+        expect(exposeTabView.disposables.disposed).toBeFalsy()
 
         exposeTabView.closeTab()
 
         expect(atom.workspace.getTextEditors()).toHaveLength 0
-        expect(exposeTabView.destroyed).toBeTruthy()
+        expect(exposeTabView.disposables.disposed).toBeTruthy()
 
   describe "activateTab()", ->
     it "activates selected tab item", ->
