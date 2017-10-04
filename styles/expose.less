@@ -15,10 +15,6 @@ atom-panel.modal.expose-panel.from-top {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-atom-workspace-axis.expose-blur {
-  -webkit-filter: blur(5px)
-}
-
 atom-panel.modal .expose-view {
   @shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.5);
   height: 100%;
@@ -181,19 +177,6 @@ atom-panel.modal .expose-view {
     &:nth-of-type(7) { .tab-numbers-style("7"); }
     &:nth-of-type(8) { .tab-numbers-style("8"); }
     &:nth-of-type(9) { .tab-numbers-style("9"); }
-  }
-
-/* Modal zoom animation */
-
-  &.animate {
-  	transform: scale(0.7);
-  	opacity: 0;
-  	transition: all 0.1s;
-  }
-
-  &.animate.visible {
-  	transform: scale(1);
-  	opacity: 1;
   }
 
 /* Helpers */

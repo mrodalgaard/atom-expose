@@ -58,9 +58,6 @@ class ExposeView extends View
       event.stopPropagation()
       @exposeHide()
 
-    @disposables.add atom.config.observe 'expose.useAnimations', (value) =>
-      @element.classList.toggle('animate', value)
-
     @disposables.add atom.commands.add @element,
       'core:confirm': => @handleConfirm()
       'core:cancel': => @exposeHide()
@@ -110,9 +107,6 @@ class ExposeView extends View
       @focus()
     else
       atom.workspace.getActivePane().activate()
-
-    # Animation does not trigger when class is set immediately
-    setTimeout (=> @element.classList.toggle('visible', @visible)), 0
 
   getGroupColor: (n) ->
     colors = ['#3498db', '#e74c3c', '#2ecc71', '#9b59b6']
