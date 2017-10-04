@@ -123,12 +123,15 @@ class ExposeView extends View
     @removeTabs()
 
     @tabs = []
-    for pane, i in atom.workspace.getPanes()
+    for pane, i in @getPanes()
       color = @getGroupColor(i)
       for item in pane.getItems()
         @tabs.push new ExposeTabView(item, color)
 
     @renderTabs(@tabs = @filterTabs(@tabs))
+
+  getPanes: ->
+    atom.workspace.getCenter().getPanes()
 
   filterTabs: (tabs) ->
     text = @searchBuffer.getText()
