@@ -179,3 +179,7 @@ class ExposeView extends View
       panel.hide() if panel.className is 'expose-panel'
 
   isSearching: -> @searchView.hasClass('is-focused')
+
+  updateFileIcons: ->
+    for tab in @tabs
+      tab.updateIcon()

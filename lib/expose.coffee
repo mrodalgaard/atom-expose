@@ -1,6 +1,7 @@
-{CompositeDisposable} = require 'atom'
+{CompositeDisposable, Disposable} = require 'atom'
 
 ExposeView = require './expose-view'
+FileIcons = require './file-icons'
 
 module.exports = Expose =
   exposeView: null
@@ -41,3 +42,10 @@ module.exports = Expose =
       @exposeView.exposeHide()
     else
       @modalPanel.show()
+
+  consumeFileIcons: (service) ->
+    FileIcons.setService(service)
+    @exposeView.updateFileIcons()
+    new Disposable =>
+      FileIcons.resetService()
+      @exposeView.updateFileIcons()

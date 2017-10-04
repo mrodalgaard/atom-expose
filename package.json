@@ -21,5 +21,12 @@
     "atom-space-pen-views": "^2.0.3",
     "fuzzaldrin": "^2.1.0",
     "sortablejs": "^1.3.0"
+  },
+  "consumedServices": {
+    "atom.file-icons": {
+      "versions": {
+        "1.0.0": "consumeFileIcons"
+      }
+    }
   }
 }

@@ -1,27 +1,26 @@
 {View, $$} = require 'atom-space-pen-views'
 {CompositeDisposable} = require 'atom'
 
+FileIcons = require './file-icons'
+
 module.exports =
 class ExposeView extends View
-  @content: (title, color, pending) ->
-    titleClass = 'title icon-file-text'
-    titleClass += ' pending' if pending
-
+  @content: (title, color) ->
     @div click: 'activateTab', class: 'expose-tab', =>
       @div class: 'tab-header', =>
-        @div class: titleClass, 'data-name': title, title
+        @div outlet: 'itemTitle', 'data-name': title, title
         @div click: 'closeTab', class: 'close-icon icon-x'
       @div outlet: 'tabBody', class: 'tab-body', style: "border-color: #{color}"
 
   constructor: (@item = {}, @color = '#000') ->
     @title = @getItemTitle()
-    @pending = @isItemPending()
-    super(@title, @color, @pending)
+    super(@title, @color)
 
   initialize: ->
     @disposables = new CompositeDisposable
     @handleEvents()
     @populateTabBody()
+    @updateIcon()
 
   handleEvents: ->
     @on 'click', '.icon-sync', @refreshTab
@@ -116,3 +115,15 @@ class ExposeView extends View
       pane.getPendingItem() is @item
     else if @item.isPending?
       @item.isPending()
+
+  updateIcon: ->
+    classList = 'title '
+    classList += 'pending ' if @isItemPending()
+
+    if iconName = @item.getIconName?()
+      classList += "icon-#{iconName}"
+    else if path = @item.getPath?()
+      if iconName = FileIcons.getService().iconClassForPath(path, 'expose')
+        classList += iconName.join(' ')
+
+    @itemTitle.attr('class', classList)
