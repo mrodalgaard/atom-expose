@@ -16,7 +16,7 @@ describe "ExposeTabView", ->
       expect(exposeTabView.find('.title').text()).toBe 'untitled'
       expect(exposeTabView.tabBody.find('a')).toHaveLength 1
       expect(exposeTabView.tabBody.find('a').attr('class')).toContain 'text'
-      expect(exposeTabView.pending).toBe false
+      expect(exposeTabView.isItemPending()).toBe false
 
     it "populates normal text editor", ->
       waitsForPromise ->
@@ -111,7 +111,8 @@ describe "ExposeTabView", ->
         exposeTabView = new ExposeTabView(item)
 
         expect(exposeTabView.title).toBe 'sample1.txt'
-        expect(exposeTabView.pending).toBe true
+        expect(exposeTabView.isItemPending()).toBe true
+        expect(exposeTabView.itemTitle.attr('class')).toContain 'pending'
 
   describe "closeTab()", ->
     it "destroys selected tab item", ->

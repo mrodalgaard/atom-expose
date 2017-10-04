@@ -23,10 +23,10 @@ describe "ExposeView", ->
       expect(exposeView.tabList.children()).toHaveLength 2
       expect(exposeView.tabs).toHaveLength 2
 
-    it "assign colors to different panes", ->
+    it "assigns colors to different panes", ->
       atom.workspace.getActivePane().splitRight(copyActiveItem: true)
       exposeView.update(true)
-      expect(atom.workspace.getPanes()).toHaveLength 2
+      expect(atom.workspace.getCenter().getPanes()).toHaveLength 2
       expect(exposeView.tabs).toHaveLength 3
 
       color1 = exposeView.getGroupColor(0)
