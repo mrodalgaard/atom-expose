@@ -8,7 +8,8 @@
   }
 }
 
-.theme-one-light-ui, .theme-one-dark-ui {
+.theme-one-light-ui,
+.theme-one-dark-ui {
   atom-panel.modal.expose-panel {
     background-color: inherit;
 
@@ -23,7 +24,8 @@
     padding: 10px;
   }
 
-  .expose-view .tab-body, .expose-view .tab-header {
+  .expose-view .tab-body,
+  .expose-view .tab-header {
     background-color: @app-background-color;
   }
 }
@@ -31,5 +33,11 @@
 .theme-native-ui {
   atom-panel.modal.expose-panel {
     top: 0 !important;
+  }
+}
+
+.theme-nucleus-dark-ui {
+  atom-panel.modal:before {
+    background-color: inherit;
   }
 }

@@ -35,7 +35,7 @@ atom-panel.modal .expose-view {
         display: flex;
         flex: 1 1 220px;
         .btn {
-          padding-top: 4px;
+          display: flex;
         }
       }
 
@@ -96,7 +96,7 @@ atom-panel.modal .expose-view {
           margin-top: -17px;
           cursor: pointer;
           transform: scale(0);
-          transition-duration: .08s;
+          transition-duration: 0.08s;
         }
       }
 
@@ -132,7 +132,7 @@ atom-panel.modal .expose-view {
 
         .close-icon {
           transform: scale(1);
-          transition-duration: .12s;
+          transition-duration: 0.12s;
         }
       }
 
@@ -148,11 +148,11 @@ atom-panel.modal .expose-view {
   }
 
   // Fix stand alone minimap in relative mode (issue #23)
-  atom-text-editor-minimap[stand-alone=true] {
+  atom-text-editor-minimap[stand-alone="true"] {
     width: 190px;
   }
 
-/* Tabs numbers */
+  /* Tabs numbers */
 
   .tab-numbers-style(@content) {
     .close-icon {
@@ -168,26 +168,48 @@ atom-panel.modal .expose-view {
   }
 
   .expose-tab:not(:hover) {
-    &:nth-of-type(1) { .tab-numbers-style("1"); }
-    &:nth-of-type(2) { .tab-numbers-style("2"); }
-    &:nth-of-type(3) { .tab-numbers-style("3"); }
-    &:nth-of-type(4) { .tab-numbers-style("4"); }
-    &:nth-of-type(5) { .tab-numbers-style("5"); }
-    &:nth-of-type(6) { .tab-numbers-style("6"); }
-    &:nth-of-type(7) { .tab-numbers-style("7"); }
-    &:nth-of-type(8) { .tab-numbers-style("8"); }
-    &:nth-of-type(9) { .tab-numbers-style("9"); }
+    &:nth-of-type(1) {
+      .tab-numbers-style("1");
+    }
+    &:nth-of-type(2) {
+      .tab-numbers-style("2");
+    }
+    &:nth-of-type(3) {
+      .tab-numbers-style("3");
+    }
+    &:nth-of-type(4) {
+      .tab-numbers-style("4");
+    }
+    &:nth-of-type(5) {
+      .tab-numbers-style("5");
+    }
+    &:nth-of-type(6) {
+      .tab-numbers-style("6");
+    }
+    &:nth-of-type(7) {
+      .tab-numbers-style("7");
+    }
+    &:nth-of-type(8) {
+      .tab-numbers-style("8");
+    }
+    &:nth-of-type(9) {
+      .tab-numbers-style("9");
+    }
   }
 
-/* Helpers */
+  /* Helpers */
 
   .ghost {
     opacity: 0.4;
   }
 
   @-webkit-keyframes spin {
-    from {transform:rotate(0deg);}
-    to {transform:rotate(360deg);}
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   .icon-resize(@size) {
