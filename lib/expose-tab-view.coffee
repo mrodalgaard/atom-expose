@@ -46,6 +46,7 @@ class ExposeView extends View
       @a class: iconClass or switch objectClass
         when 'TextEditor' then 'icon-file-code'
         when 'ArchiveEditor' then 'icon-file-zip'
+        when 'ArchiveEditorView' then 'icon-file-zip'
         else 'icon-file-text'
 
   drawImage: ->

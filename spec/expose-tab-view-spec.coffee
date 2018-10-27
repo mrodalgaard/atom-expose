@@ -76,14 +76,15 @@ describe "ExposeTabView", ->
         atom.packages.activatePackage 'markdown-preview'
         atom.workspace.open '../../README.md'
       runs ->
+        element = atom.workspace.getActiveTextEditor().getElement()
         item = null
-        atom.commands.dispatch workspaceElement, 'markdown-preview:toggle'
+        atom.commands.dispatch element, 'markdown-preview:toggle'
 
         waitsFor ->
           item = atom.workspace.getPaneItems()[1]
         runs ->
           exposeTabView = new ExposeTabView(item)
-          expect(exposeTabView.title).toBe 'README.md Preview'
+          expect(exposeTabView.title).toBe 'Markdown Preview'
           expect(exposeTabView.tabBody.find('a')).toHaveLength 1
           expect(exposeTabView.tabBody.find('a').attr('class')).toContain 'markdown'
 
