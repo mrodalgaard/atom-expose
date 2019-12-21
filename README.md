@@ -1,5 +1,7 @@
 # Atom Tabs Exposé [![Build Status](https://travis-ci.org/mrodalgaard/atom-expose.svg)](https://travis-ci.org/mrodalgaard/atom-expose)
 
+> DEPRECATED: This package will no longer be maintained by me since I have switched permanently to VSCode.
+
 Quick tab overview of open files. Similar to Mac OSX Exposé / Mission Control, Firefox Tab Group, Safari and Chrome Tab Overview, etc.
 
 * Shows active tab, panes and previews.
